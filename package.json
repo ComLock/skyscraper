@@ -7,8 +7,9 @@
     "url": "http://bitbucket.org/openxp/starter-skyscraper.git"
   },
   "author": "rfo@enonic.com",
-  "license": "",
+  "license": "ISC",
   "devDependencies": {
+    "babel-cli": "^6.5.1",
     "babel-core": "^6.5.2",
     "babel-loader": "^6.2.3",
     "babel-preset-es2015": "^6.5.0",

@@ -1,10 +1,10 @@
 module.exports =
 [
     {
-        entry: './src/main/resources/site/assets/parts/skyscraper/skyscraper.es6',
+        entry: './src/main/resources/site/assets/parts/skyscraper/skyscraperClient.es6',
         output: {
             path: './build/resources/main/site/assets/parts/skyscraper/',
-            filename: "skyscraper.js"
+            filename: "skyscraperClient.js"
         },
         module: {
             loaders: [

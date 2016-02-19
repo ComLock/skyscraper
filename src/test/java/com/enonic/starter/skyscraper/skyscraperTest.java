@@ -6,6 +6,6 @@ public class skyscraperTest extends ScriptRunnerSupport {
 
     @Override
     public String getScriptTestFile() {
-        return "/site/parts/skyscraper/skyscraper.js";
+        return "/site/parts/skyscraper/skyscraper-test.js";
     }
 }

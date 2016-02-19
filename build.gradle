@@ -5,21 +5,21 @@ buildscript {
         maven {
             url 'http://repo.enonic.com/public'
         }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
 
     dependencies {
         classpath "com.enonic.xp:gradle-plugin:${xpVersion}"
+        classpath "com.moowork.gradle:gradle-node-plugin:0.11"
     }
 }
-
-plugins{
-    id "com.moowork.node" version "0.11"
-}
-
 
 apply plugin: 'com.enonic.xp.app'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
+apply plugin: 'com.moowork.node'
 
 app {
     name = project.appName
@@ -27,6 +27,8 @@ app {
     vendorName = 'Enonic AS'
     vendorUrl = 'http://enonic.com'
 }
+
+
 
 dependencies {
     compile "com.enonic.xp:core-api:${xpVersion}"
@@ -39,6 +41,8 @@ dependencies {
     include "com.enonic.xp:lib-i18n:${xpVersion}"
 
     include "com.enonic.lib:util:1.0.0"
+
+    testCompile 'junit:junit:4.10'
     testCompile "com.enonic.xp:testing:${xpVersion}"
 }
 
