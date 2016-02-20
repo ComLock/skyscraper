@@ -41,6 +41,7 @@ dependencies {
     include "com.enonic.xp:lib-i18n:${xpVersion}"
 
     include "com.enonic.lib:util:1.0.0"
+    include "com.enonic.lib:menu:1.1.1"
 
     testCompile 'junit:junit:4.10'
     testCompile "com.enonic.xp:testing:${xpVersion}"
@@ -92,6 +93,9 @@ task webpack(type:NodeTask, dependsOn:'npmInstall') {
     args = [
             '--config webpack.config.js'
     ]
+    if (project.hasProperty('watch')){
+        args = ['--watch'] + args
+    }
 }
 
 webpack.mustRunAfter(babelJs, babelJsTest)

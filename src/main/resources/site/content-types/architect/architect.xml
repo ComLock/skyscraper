@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type>
+    <display-name>Architect</display-name>
+    <super-type>base:structured</super-type>
+    <form>
+        <field-set name="architect">
+            <label>Architect</label>
+            <items>
+                <input name="image" type="ImageSelector">
+                    <label>Image</label>
+                    <occurrences minimum="0" maximum="1"/>
+                </input>
+                <input type="TextArea" name="preface">
+                    <label>Preface</label>
+                    <occurrences minimum="0" maximum="1"/>
+                </input>
+                <input type="HtmlArea" name="bodyText">
+                    <label>Body text</label>
+                    <occurrences minimum="0" maximum="1"/>
+                </input>
+            </items>
+        </field-set>
+    </form>
+</content-type>

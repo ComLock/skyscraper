@@ -1,10 +1,10 @@
 module.exports =
 [
     {
-        entry: './src/main/resources/site/assets/parts/skyscraper/skyscraperClient.es6',
+        entry: './src/main/resources/site/assets/parts/architect/architectClient.es6',
         output: {
-            path: './build/resources/main/site/assets/parts/skyscraper/',
-            filename: "skyscraperClient.js"
+            path: './build/resources/main/site/assets/parts/architect/',
+            filename: "architectClient.js"
         },
         module: {
             loaders: [
@@ -19,14 +19,32 @@ module.exports =
         }
     },
     {
-        entry: './src/test/resources/site/parts/skyscraper/skyscraper-test.es6',
+        entry: './src/main/resources/site/assets/parts/architects/architectsClient.es6',
         output: {
-            path: './build/resources/test/site/parts/skyscraper/',
-            filename: "skyscraper-test.js",
+            path: './build/resources/main/site/assets/parts/architects/',
+            filename: "architectsClient.js"
+        },
+        module: {
+            loaders: [
+                {
+                    test: /\.es6$/,
+                    loader: 'babel',
+                    query: {
+                        presets: ['es2015']
+                    }
+                }
+            ]
+        }
+    },
+    {
+        entry: './src/test/resources/site/parts/architect/architect-test.es6',
+        output: {
+            path: './build/resources/test/site/parts/architect/',
+            filename: "architect-test.js",
             libraryTarget: "commonjs"
         },
         externals: [
-            "./skyscraper.js",
+            "./architect.js",
             "/lib/xp/assert",
             "/lib/xp/mock/portal",
             "/lib/xp/mock/content",

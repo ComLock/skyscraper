@@ -1,0 +1,8 @@
+<div class="architect grid-item" data-th-if="${architect}" data-th-fragment="architectView (architect)">
+    <h1 data-th-if="${architect.heading}" id="heading" data-th-text="${architect.heading}">Louis Henri Sullivan</h1>
+    <p data-th-if="${architect.preface}" id="preface" class="preface" data-th-utext="${architect.preface}">He was one of the first architects to design skyscrapers.</p>
+    <div id="body">
+        <img data-th-if="${architect.image}" id="image" data-th-src="${architect.image}"/>
+        <span data-th-if="${architect.bodyText}" id="bodyText" data-th-utext="${architect.bodyText}" data-th-remove="tag"/>
+    </div>
+</div>

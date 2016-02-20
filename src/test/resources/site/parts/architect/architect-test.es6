@@ -1,7 +1,7 @@
 var DomParser = require('dom-parser');
-var controller = require('./skyscraper.js');
+var controller = require('./architect.js');
 
-var libs = {
+const libs = {
     assert: require('/lib/xp/assert'),
     portalMock: require('/lib/xp/mock/portal'),
     contentMock: require('/lib/xp/mock/content'),
@@ -10,12 +10,15 @@ var libs = {
 
 exports.testNpm = function () {
     defaultSetup();
-    const result = "<html><body><h1 id='heading'>Skyscraper heading</h1></body>";
+    //const result = controller.get({params: {contentId: '42'}});
+
+    /*
     var parser = new DomParser();
     var dom = parser.parseFromString(result);
-    libs.util.log(dom);
-    libs.util.log(dom.getElementById('heading').textContent);
-    libs.assert.assertTrue(true);
+    libs.assert.assertEquals(
+        defaultContent().displayName,
+        dom.getElementById('heading').textContent);
+    */
 };
 
 function defaultSetup() {
@@ -28,12 +31,12 @@ function defaultSetup() {
 function defaultContent() {
     return {
         _id: '42',
-        displayName: 'Skyscraper',
-        type: "com.enonic.starter.skyscraper:menuItem",
+        displayName: 'Louis Henry Sullivan',
+        type: "com.enonic.starter.skyscraper:architect",
         data: {
-            preface: 'preface',
-            bodyText: 'bodytext',
-            author: 'author'
+            preface: 'Known for the principle of "form follows function"',
+            bodyText: '<h1>test</h1>',
+            image:'12345'
         }
     };
 }

@@ -1,0 +1,5 @@
+<div id="architects" class="grid">
+    <div data-th-remove="tag" data-th-each="architect : ${architects}">
+        <div data-th-replace="../architect/architect-view.html :: architectView(${architect})"/>
+    </div>
+</div>

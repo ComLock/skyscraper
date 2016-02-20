@@ -10,7 +10,7 @@ exports.get = handleGet;
 function handleGet(req) {
     var site = libs.portal.getSite();
     var content = libs.portal.getContent();
-    var view = resolve('default.html');
+    var view = resolve('skyscraper.html');
     var model = createModel();
 
     function createModel() {
@@ -19,13 +19,27 @@ function handleGet(req) {
         model.mainRegion = content.page.regions['main'];
         model.sitePath = site['_path'];
         model.currentPath = content._path;
-        model.pageTitle = 'Default page'
+        model.pageTitle = content.displayName;
         model.siteName = site.displayName;
 
         return model;
     }
 
+    const skyscraperScript = libs.portal.assetUrl({
+        path: 'pages/skyscraper/skyscraperClient.js'
+    });
+
+    const skyscraperCss = libs.portal.assetUrl({
+        path: 'pages/skyscraper/skyscraper.css'
+    });
+
     return {
-        body: libs.thymeleaf.render(view, model)
+        body: libs.thymeleaf.render(view, model),
+        pageContributions: {
+            headEnd: [
+                "<link href='" + skyscraperCss + "' rel='stylesheet' type='text/css'/>",
+                "<script src='" + skyscraperScript + "' type='text/javascript'></script>"
+            ]
+        }
     };
 }

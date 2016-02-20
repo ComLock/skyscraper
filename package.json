@@ -16,5 +16,8 @@
     "dom-parser": "^0.1.5",
     "event-emitter": "^0.3.4",
     "webpack": "^1.12.13"
+  },
+  "dependencies": {
+    "masonry-layout": "^4.0.0"
   }
 }

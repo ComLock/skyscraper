@@ -7,22 +7,23 @@ let skyscraper = (function() {
         testParse();
     };
 
-    var testParse = function(parser){
-        var parser = new DOMParser();
-        var dom = parser.parseFromString("<h1 id='heading'>My great heading</h1>");
+    var testParse = function(){
+        const result = "<html><body><h1 id='heading'>My awezome heading</h1></body>";
+        var parser = new DomParser();
+        var dom = parser.parseFromString(result);
         console.log(dom);
         console.log(dom.getElementById("heading").textContent);
     }
 
     var registerClickEvent = function() {
-        var skyscraper = document.getElementById('skyscraper');
+        var skyscraper = document.getElementById('architect');
         skyscraper.addEventListener('click', function() {
             handleSkyscraperClick(this);
         });
     };
 
     var handleSkyscraperClick = function(element) {
-        element.innerHTML = '<p>clicked</p>';
+        console.log('clicked architect');
     };
 
     return {
