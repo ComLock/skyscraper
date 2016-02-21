@@ -36,7 +36,7 @@ function handleGet(req) {
     return {
         body: libs.thymeleaf.render(view, model),
         pageContributions: {
-            headEnd: [
+            headBegin: [
                 "<link href='" + skyscraperCss + "' rel='stylesheet' type='text/css'/>",
                 "<script src='" + skyscraperScript + "' type='text/javascript'></script>"
             ]

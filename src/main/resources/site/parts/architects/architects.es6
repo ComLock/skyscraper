@@ -49,13 +49,14 @@ const getModel = function(architects){
                 heading: element.displayName,
                 image: libs.portal.imageUrl({
                     id: element.data.image,
-                    scale: 'width(150)',
+                    scale: 'width(200)',
                     filter: 'rounded(1);sharpen();border(2,0x777777)'
                 }),
                 preface: element.data.preface,
-                bodyText: libs.portal.processHtml({
+                tags: element.data.tags,
+                /*bodyText: libs.portal.processHtml({
                     value: element.data.bodyText
-                })
+                })*/
             }
         );
     });

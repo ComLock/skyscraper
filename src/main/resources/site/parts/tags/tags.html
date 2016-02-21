@@ -1,0 +1,15 @@
+<div id="tags" class="grid-tags">
+    <script data-th-inline="text">
+        /*<![CDATA[*/
+        window.[[${namespaces.local+'ComponentUrl'}]] = '[[${componentUrl}]]';
+        /*]]>*/
+    </script>
+    <div data-th-remove="tag" data-th-if="${aggregations}" data-th-each="aggregation : ${aggregations}">
+        <a class="secondary label radius grid-item-tag" data-th-id="${aggregation.key}" data-th-text="${aggregation.key + ' (' + aggregation.docCount + ')'}"/>
+    </div>
+
+    <div data-th-remove="tag" data-th-if="${tags}" data-th-each="tag : ${tags}">
+        <a class="secondary label radius grid-item-tag" data-th-id="${tag}" data-th-text="${tag}"/>
+    </div>
+
+</div>

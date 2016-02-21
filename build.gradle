@@ -63,9 +63,6 @@ task babelJs(type:NodeTask, dependsOn:'npmInstall'){
             "es2015",
             "src/main/resources"
     ]
-    if (project.hasProperty('watch')){
-        args = ['-w'] + args
-    }
     inputs.dir "src/main/resources"
     outputs.dir "$buildDir/resources/main"
 }
@@ -81,9 +78,6 @@ task babelJsTest(type:NodeTask, dependsOn:'npmInstall'){
             "es2015",
             "src/test/resources"
     ]
-    if (project.hasProperty('watch')){
-        args = ['-w'] + args
-    }
     inputs.dir "src/test/resources"
     outputs.dir "$buildDir/resources/test"
 }
@@ -93,9 +87,6 @@ task webpack(type:NodeTask, dependsOn:'npmInstall') {
     args = [
             '--config webpack.config.js'
     ]
-    if (project.hasProperty('watch')){
-        args = ['--watch'] + args
-    }
 }
 
 webpack.mustRunAfter(babelJs, babelJsTest)

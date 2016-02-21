@@ -1,0 +1,35 @@
+#skyscraperStarter #tags {
+    margin: 15px;
+}
+
+.grid-item-tag { }
+.grid-item-tag--width2 { }
+
+
+.label.secondary {
+    background-color: #e7e7e7;
+    color: #333333;
+}
+.label.radius {
+    border-radius: 5px;
+}
+.label {
+    font-weight: normal;
+    font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+    text-align: center;
+    text-decoration: none;
+    line-height: 1;
+    white-space: nowrap;
+    display: inline-block;
+    position: relative;
+    margin-bottom: inherit;
+    padding: 0.25rem 0.5rem 0.25rem;
+    font-size: 0.6875rem;
+    background-color: #008cba;
+    color: white;
+    cursor: pointer;
+}
+
+.label.selected{
+    background-color: #FF9900;
+}

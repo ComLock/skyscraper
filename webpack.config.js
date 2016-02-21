@@ -1,6 +1,24 @@
 module.exports =
 [
     {
+        entry: './src/main/resources/site/assets/pages/skyscraper/skyscraperClient.es6',
+        output: {
+            path: './build/resources/main/site/assets/pages/skyscraper/',
+            filename: "skyscraperClient.js"
+        },
+        module: {
+            loaders: [
+                {
+                    test: /\.es6$/,
+                    loader: 'babel',
+                    query: {
+                        presets: ['es2015']
+                    }
+                }
+            ]
+        }
+    },
+    {
         entry: './src/main/resources/site/assets/parts/architect/architectClient.es6',
         output: {
             path: './build/resources/main/site/assets/parts/architect/',
@@ -23,6 +41,24 @@ module.exports =
         output: {
             path: './build/resources/main/site/assets/parts/architects/',
             filename: "architectsClient.js"
+        },
+        module: {
+            loaders: [
+                {
+                    test: /\.es6$/,
+                    loader: 'babel',
+                    query: {
+                        presets: ['es2015']
+                    }
+                }
+            ]
+        }
+    },
+    {
+        entry: './src/main/resources/site/assets/parts/tags/tagsClient.es6',
+        output: {
+            path: './build/resources/main/site/assets/parts/tags/',
+            filename: "tagsClient.js"
         },
         module: {
             loaders: [

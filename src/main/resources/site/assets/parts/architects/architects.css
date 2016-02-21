@@ -12,5 +12,7 @@
     margin: 0px 15px 10px 10px;
 }
 
-.grid-item { width: 250px;margin-bottom: 10px;}
-.grid-item--width2 { width: 500px; }
+.grid-item-architect { width: 250px;margin-bottom: 10px;}
+.grid-item-architect--width2 { width: 500px; }
+
+.hidden{visibility: hidden}

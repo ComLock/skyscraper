@@ -6,6 +6,13 @@
         <field-set name="architect">
             <label>Architect</label>
             <items>
+                <input name="tags" type="Tag">
+                    <label>Tags</label>
+                    <immutable>false</immutable>
+                    <indexed>true</indexed>
+                    <occurrences minimum="0" maximum="10"/>
+                    <config/>
+                </input>
                 <input name="image" type="ImageSelector">
                     <label>Image</label>
                     <occurrences minimum="0" maximum="1"/>
