@@ -10,7 +10,7 @@ module.exports =
             loaders: [
                 {
                     test: /\.es6$/,
-                    loader: 'babel',
+                    loader: 'babel-loader',
                     query: {
                         presets: ['es2015']
                     }
@@ -28,7 +28,7 @@ module.exports =
             loaders: [
                 {
                     test: /\.es6$/,
-                    loader: 'babel',
+                    loader: 'babel-loader',
                     query: {
                         presets: ['es2015']
                     }
@@ -46,7 +46,7 @@ module.exports =
             loaders: [
                 {
                     test: /\.es6$/,
-                    loader: 'babel',
+                    loader: 'babel-loader',
                     query: {
                         presets: ['es2015']
                     }
@@ -64,7 +64,7 @@ module.exports =
             loaders: [
                 {
                     test: /\.es6$/,
-                    loader: 'babel',
+                    loader: 'babel-loader',
                     query: {
                         presets: ['es2015']
                     }
@@ -90,7 +90,7 @@ module.exports =
             loaders: [
                 {
                     test: /\.es6$/,
-                    loader: 'babel',
+                    loader: 'babel-loader',
                     query: {
                         presets: ['es2015']
                     }

@@ -2,7 +2,8 @@ const libs = {
     portal: require('/lib/xp/portal'),
     thymeleaf: require('/lib/xp/thymeleaf'),
     util: require('/lib/enonic/util/util'),
-    content: require('/lib/xp/content')
+    content: require('/lib/xp/content'),
+    tags: require('/lib/skyscraper/tags')
 };
 
 exports.get = handleGet;
@@ -12,7 +13,7 @@ function handleGet(req) {
 
     const architects= libs.content.query({
         start: 0,
-        count: 10,
+        count: 100,
         contentTypes: [
             app.name + ":architect"
         ]
@@ -43,6 +44,8 @@ const getModel = function(architects){
     let model = {
         architects:[]
     };
+    var tags = libs.tags.getTags();
+
     architects.hits.forEach(function(element,index,array){
         model.architects.push(
             {

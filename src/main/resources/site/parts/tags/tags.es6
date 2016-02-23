@@ -9,6 +9,9 @@ const libs = {
 exports.get = handleGet;
 
 function handleGet(req) {
+    libs.util.log('tags handleGet, req:');
+    libs.util.log(req);
+
     const view = resolve('tags.html');
 
     let model = getModel();
@@ -35,13 +38,16 @@ function handleGet(req) {
 const getModel = function(){
     let component = libs.portal.getComponent();
     let ns = libs.namespaces.get(app.name, component);
-    libs.util.log(ns.app);
-    libs.util.log(ns.part);
-    libs.util.log(ns.local);
 
     let model = {
         namespaces: ns,
-        componentUrl: libs.portal.componentUrl({})
+        componentUrl: libs.portal.componentUrl({}),
+        updateTagsServiceUrl: libs.portal.serviceUrl({
+            service: 'updateTags',
+            params: {
+                tag: ''
+            }
+        })
     };
 
     let content = libs.portal.getContent();

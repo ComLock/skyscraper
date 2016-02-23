@@ -2,6 +2,7 @@
     <script data-th-inline="text">
         /*<![CDATA[*/
         window.[[${namespaces.local+'ComponentUrl'}]] = '[[${componentUrl}]]';
+        window.[[${namespaces.local+'UpdateTagsServiceUrl'}]] = '[[${updateTagsServiceUrl}]]';
         /*]]>*/
     </script>
     <div data-th-remove="tag" data-th-if="${aggregations}" data-th-each="aggregation : ${aggregations}">

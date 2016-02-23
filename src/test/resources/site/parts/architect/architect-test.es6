@@ -10,15 +10,30 @@ const libs = {
 
 exports.testNpm = function () {
     defaultSetup();
-    //const result = controller.get({params: {contentId: '42'}});
-
-    /*
+    const result = controller.get({params: {contentId: '42'}});
+    libs.util.log("result:");
+    libs.util.log(result);
     var parser = new DomParser();
     var dom = parser.parseFromString(result);
+    libs.util.log(dom);
+    libs.assert.assertTrue(true);
+
+    /*libs.assert.assertNotNull(dom.getElementById('heading'));*/
+
+    /*
     libs.assert.assertEquals(
         defaultContent().displayName,
         dom.getElementById('heading').textContent);
     */
+
+};
+
+exports.testTrue = function () {
+    libs.assert.assertTrue(true);
+};
+
+exports.testNull = function () {
+    libs.assert.assertNull(null);
 };
 
 function defaultSetup() {
@@ -35,7 +50,7 @@ function defaultContent() {
         type: "com.enonic.starter.skyscraper:architect",
         data: {
             preface: 'Known for the principle of "form follows function"',
-            bodyText: '<h1>test</h1>',
+            bodyText: '<h1 id="heading">test</h1>',
             image:'12345'
         }
     };

@@ -8,7 +8,5 @@ exports.get = function(appName, component){
 
 var removeBadChar = function(ns)
 {
-    // Replace invalid characters with "_" char.
-    return ns.replace(/[^a-z0-9_]/ig, '_')
-
+    return ns.replace(/[^a-z0-9_]/ig, '_');
 }

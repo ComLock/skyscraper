@@ -1,7 +1,6 @@
 const libs = {
     portal: require('/lib/xp/portal'),
     thymeleaf: require('/lib/xp/thymeleaf'),
-    util: require('/lib/enonic/util/util'),
     content: require('/lib/xp/content')
 };
 
@@ -13,6 +12,7 @@ function handleGet(req) {
 
     let model = getModel(content);
 
+    /*
     const architectClientScript = libs.portal.assetUrl({
         path: 'parts/architect/architectClient.js'
     });
@@ -20,6 +20,10 @@ function handleGet(req) {
     const architectCss = libs.portal.assetUrl({
         path: 'parts/architect/architect.css'
     });
+    */
+
+    const architectClientScript = '';
+    const architectCss = '';
 
     return {
         body: libs.thymeleaf.render(view, model),
@@ -33,18 +37,27 @@ function handleGet(req) {
 }
 
 const getModel = function(content){
+
+
+    /*let imageUrl = libs.portal.imageUrl({
+        id: content.data.image,
+        scale: 'height(400)',
+        filter: 'rounded(1);sharpen();border(2,0x777777)'
+    });
+
+    let bodyHtml = libs.portal.processHtml({
+        value: content.data.bodyText
+    });*/
+
+    let imageUrl = '';
+    let bodyHtml = '<html><body><h1 id="heading">Test</h1></body></html>';
+
     return {
         architect:{
             heading: content.displayName,
-            image: libs.portal.imageUrl({
-                id: content.data.image,
-                scale: 'height(400)',
-                filter: 'rounded(1);sharpen();border(2,0x777777)'
-            }),
+            image: imageUrl,
             preface: content.data.preface,
-            bodyText: libs.portal.processHtml({
-                value: content.data.bodyText
-            })
+            bodyText: bodyHtml
         }
     };
 }

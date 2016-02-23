@@ -1,4 +1,4 @@
-package com.enonic.starter.architect;
+package com.enonic.starter.skyscraper.parts;
 
 import com.enonic.xp.testing.script.ScriptRunnerSupport;
 

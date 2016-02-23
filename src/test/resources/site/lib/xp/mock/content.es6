@@ -2,13 +2,8 @@ var getJson = {};
 var queryJson = {};
 
 var mock = {
-    get: function(params) {
-        return getJson;
-    },
-
-    query: function(params) {
-        return queryJson;
-    }
+    get: () => getJson,
+    query: () => queryJson
 };
 
 exports.mockGet = function(json) {

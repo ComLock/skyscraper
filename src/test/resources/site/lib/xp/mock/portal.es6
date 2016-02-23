@@ -1,71 +1,71 @@
-var siteJson = {};
-var siteConfigJson = {};
-var contentJson = {}
-var componentJson = {};
+let siteJson = {};
+let siteConfigJson = {};
+let contentJson = {};
+let componentJson = {};
 
 function createUrl(name, params) {
-    return name + "/" + JSON.stringify(params);
+    return `${name}/${JSON.stringify(params)}`;
 }
 
-var mock = {
-    assetUrl: function (params) {
+const mock = {
+    assetUrl: (params) => {
         return createUrl('asset', params);
     },
 
-    imageUrl: function (params) {
+    imageUrl: (params) => {
         return createUrl('image', params);
     },
 
-    componentUrl: function (params) {
+    componentUrl: (params) => {
         return createUrl('component', params);
     },
 
-    attachmentUrl: function (params) {
+    attachmentUrl: (params) => {
         return createUrl('attachment', params);
     },
 
-    pageUrl: function (params) {
+    pageUrl: (params) => {
         return createUrl('page', params);
     },
 
-    serviceUrl: function (params) {
+    serviceUrl: (params) => {
         return createUrl('service', params);
     },
 
-    processHtml: function (params) {
-        return 'process-' + JSON.stringify(params);
+    processHtml: (params) => {
+        return `process-${JSON.stringify(params)}`;
     },
 
-    getSite: function () {
+    getSite: () => {
         return siteJson;
     },
 
-    getSiteConfig: function () {
+    getSiteConfig: () => {
         return siteConfigJson;
     },
 
-    getContent: function () {
+    getContent: () => {
         return contentJson;
     },
 
-    getComponent: function () {
+    getComponent: () => {
         return componentJson;
     }
 };
 
-exports.mockSite = function (json) {
+exports.mockSite = (json) => {
     siteJson = json;
 };
 
-exports.mockSiteConfig = function (json) {
+exports.mockSiteConfig = (json) => {
     siteConfigJson = json;
 };
 
-exports.mockContent = function (json) {
+exports.mockContent = (json) => {
     contentJson = json;
 };
 
-exports.mockComponent = function (json) {
+exports.mockComponent = (json) => {
     componentJson = json;
 };
 
