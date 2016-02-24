@@ -1,16 +1,20 @@
-<div id="tags" class="grid-tags">
+<div data-th-id="${namespaces.part}" class="grid-tags">
     <script data-th-inline="text">
         /*<![CDATA[*/
-        window.[[${namespaces.local+'ComponentUrl'}]] = '[[${componentUrl}]]';
-        window.[[${namespaces.local+'UpdateTagsServiceUrl'}]] = '[[${updateTagsServiceUrl}]]';
+        window.[[${namespaces.part+'Config'}]] = {
+            componentId: '[[${namespaces.part}]]',
+            componentUrl: '[[${componentUrl}]]',
+            updateTagsServiceUrl: '[[${updateTagsServiceUrl}]]',
+            sessionStorageKey: '[[${namespaces.app}]]_selectedTags'
+        };
         /*]]>*/
     </script>
     <div data-th-remove="tag" data-th-if="${aggregations}" data-th-each="aggregation : ${aggregations}">
-        <a class="secondary label radius grid-item-tag" data-th-id="${aggregation.key}" data-th-text="${aggregation.key + ' (' + aggregation.docCount + ')'}"/>
+        <a class="secondary label radius grid-item-tag tag" data-th-id="${aggregation.key}" data-th-text="${aggregation.key + ' (' + aggregation.docCount + ')'}"/>
     </div>
 
     <div data-th-remove="tag" data-th-if="${tags}" data-th-each="tag : ${tags}">
-        <a class="secondary label radius grid-item-tag" data-th-id="${tag}" data-th-text="${tag}"/>
+        <a class="secondary label radius grid-item-tag tag" data-th-id="${tag}" data-th-text="${tag}"/>
     </div>
 
 </div>

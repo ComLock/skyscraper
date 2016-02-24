@@ -3,12 +3,19 @@ const libs = {
     thymeleaf: require('/lib/xp/thymeleaf'),
     util: require('/lib/enonic/util/util'),
     content: require('/lib/xp/content'),
-    tags: require('/lib/skyscraper/tags')
+    tags: require('/lib/skyscraper/tags'),
+    namespaces: require('/lib/enonic/namespaces'),
+    jsonPath: require('/lib/openxp/jsonpath')
+
 };
 
 exports.get = handleGet;
 
 function handleGet(req) {
+    libs.util.log("Get architects");
+    let params = req.params;
+    libs.util.log(params);
+    libs.util.log(req);
     const view = resolve('architects.html');
 
     const architects= libs.content.query({
@@ -30,6 +37,7 @@ function handleGet(req) {
     });
 
     return {
+        contentType: 'application/json',
         body: libs.thymeleaf.render(view, model),
         pageContributions: {
             headEnd: [
@@ -41,9 +49,15 @@ function handleGet(req) {
 }
 
 const getModel = function(architects){
+    let pageComponents = libs.jsonPath.process(libs.portal.getContent(), '$..components.*');
+
     let model = {
+        pageComponentsNamespaces: libs.namespaces.getPageComponentsNamespaces(pageComponents),
+        namespaces: libs.namespaces.get(app.name, libs.portal.getComponent()),
+        componentUrl: libs.portal.componentUrl({}),
         architects:[]
     };
+    libs.util.log(libs.portal.getContent());
     var tags = libs.tags.getTags();
 
     architects.hits.forEach(function(element,index,array){

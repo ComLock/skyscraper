@@ -5,6 +5,8 @@ const libs = {
 };
 
 exports.get = handleGet;
+exports.post = handleGet;
+
 
 function handleGet(req) {
     const view = resolve('architect.html');
@@ -37,7 +39,6 @@ function handleGet(req) {
 }
 
 const getModel = function(content){
-
 
     /*let imageUrl = libs.portal.imageUrl({
         id: content.data.image,

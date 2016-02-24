@@ -11,8 +11,6 @@ const libs = {
 exports.testNpm = function () {
     defaultSetup();
     const result = controller.get({params: {contentId: '42'}});
-    libs.util.log("result:");
-    libs.util.log(result);
     var parser = new DomParser();
     var dom = parser.parseFromString(result);
     libs.util.log(dom);

@@ -11,7 +11,7 @@
     <h1 data-th-if="${architect.heading}" id="heading" data-th-text="${architect.heading}">Louis Henri Sullivan</h1>
     <img data-th-if="${architect.image}" id="image" data-th-src="${architect.image}"/>
     <div data-th-remove="tag" data-th-each="tag : ${architect.tags}">
-        <span class="secondary label radius" data-th-text="${tag}"/>
+        <span class="secondary label radius tag" data-th-text="${tag}"/>
     </div>
     <p data-th-if="${architect.preface}" id="preface" class="preface" data-th-utext="${architect.preface}">He was one of the first architects to design skyscrapers.</p>
     <div id="body">

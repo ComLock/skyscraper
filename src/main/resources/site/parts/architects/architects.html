@@ -1,4 +1,15 @@
-<div id="architects" class="grid-architects">
+<div data-th-id="${namespaces.part}" class="grid-architects">
+        <script data-th-inline="text">
+            /*<![CDATA[*/
+            window.[[${namespaces.part+'Config'}]] = {
+                componentId: '[[${namespaces.part}]]',
+                componentUrl: '[[${componentUrl}]]',
+                sessionStorageKey: '[[${namespaces.app}]]_selectedTags',
+                pageComponents: '[[${pageComponents}]]',
+                pageComponentsNamespaces: '[[${pageComponentsNamespaces}]]'
+            };
+            /*]]>*/
+        </script>
     <div data-th-remove="tag" data-th-each="architect : ${architects}">
         <div data-th-replace="../architect/architect-view.html :: architectListView(${architect})"/>
     </div>
