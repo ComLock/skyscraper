@@ -1,9 +1,11 @@
 var Masonry = require('masonry-layout');
+var DomParser = require('dom-parser');
 
 let architects = (function() {
     let listener;
     let config;
     const init = function() {
+        console.log('init');
         config = window.com_enonic_starter_skyscraper_architectsConfig;
         initMasonry();
         eventListener();
@@ -34,37 +36,31 @@ let architects = (function() {
 
     const eventListener = function() {
         eventEmitter.on('clickTag', listener = function(args) {
-            let sessionStorageKey = args.sessionStorageKey;
-            var storedTags = JSON.parse(sessionStorage.getItem(sessionStorageKey));
-            console.log('Update architects based on tags: ' + storedTags);
-                fetch(config.componentUrl+ '?tags='+storedTags, {
-                    method: 'get'/*,
-                    headers: {
-                        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-                    },
-                    body: 'tags=french'*/
-                })
-                .then(function(response) {
-                    return response.text();
-                })
-                .then(function(text) {
-                    console.log('Request successful', text);
-                    document.getElementById(config.componentId).innerHTML = text;
-                })
-                /*.then(function (response) {
-                console.log(response.status);
-                console.log(response.type);
-                if (response.status !== 200) {
-                    console.log('Looks like there was a problem. Status Code: ' +
-                        response.status);
+            var storedTags = JSON.parse(sessionStorage.getItem(config.sessionStorageKey));
+            fetch(config.componentUrl+ '?tags='+storedTags, {
+                method: 'get'
+            })
+            .then(function(response) {
+                return response.text();
+            })
+            .then(function(text) {
+                if (!text){
                     return;
-                }*/
+                }
+                var parser = new DomParser();
+                var dom = parser.parseFromString(text);
+                let newHtml = dom.getElementById(config.componentId);
+                let oldHtml = document.getElementById(config.componentId);
+                if (newHtml.innerHTML && !Object.is(newHtml,oldHtml)){
+                    oldHtml.innerHTML = newHtml.innerHTML;
+                    initMasonry();
+                    setSelectedTags();
+                }
 
-                //
+            })
             .catch(function (error) {
                 console.log('Request failed', error);
             });
-            setSelectedTags();
         });
     };
 
@@ -75,5 +71,6 @@ let architects = (function() {
 })();
 
 document.addEventListener('DOMContentLoaded', function () {
+    console.log('DOMContentLoaded architectsClient');
     architects.init();
 });

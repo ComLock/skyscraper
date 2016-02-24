@@ -19,7 +19,6 @@ function handleGet(req) {
         tags = tags.replace(',',' ');
         query = "fulltext('data.tags', '"+ tags +"', 'AND')";
     }
-    libs.util.log(query);
     const view = resolve('architects.html');
 
     const architects= libs.content.query({
@@ -40,7 +39,6 @@ function handleGet(req) {
     const architectsCss = libs.portal.assetUrl({
         path: 'parts/architects/architects.css'
     });
-
 
     return {
         contentType: 'text/html',

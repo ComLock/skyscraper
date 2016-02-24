@@ -10,6 +10,7 @@ exports.get = function(appName, component){
     }
 }
 
+
 exports.getPageComponentsNamespaces = function(components){
     var componentsNamespaces = [];
     components.forEach(function(element,index,array){
