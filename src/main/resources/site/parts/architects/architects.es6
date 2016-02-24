@@ -12,15 +12,20 @@ const libs = {
 exports.get = handleGet;
 
 function handleGet(req) {
-    libs.util.log("Get architects");
-    let params = req.params;
-    libs.util.log(params);
-    libs.util.log(req);
+
+    let query = '';
+    let tags = req.params.tags;
+    if (tags){
+        tags = tags.replace(',',' ');
+        query = "fulltext('data.tags', '"+ tags +"', 'AND')";
+    }
+    libs.util.log(query);
     const view = resolve('architects.html');
 
     const architects= libs.content.query({
         start: 0,
         count: 100,
+        query: query,
         contentTypes: [
             app.name + ":architect"
         ]
@@ -36,8 +41,9 @@ function handleGet(req) {
         path: 'parts/architects/architects.css'
     });
 
+
     return {
-        contentType: 'application/json',
+        contentType: 'text/html',
         body: libs.thymeleaf.render(view, model),
         pageContributions: {
             headEnd: [
@@ -57,7 +63,7 @@ const getModel = function(architects){
         componentUrl: libs.portal.componentUrl({}),
         architects:[]
     };
-    libs.util.log(libs.portal.getContent());
+
     var tags = libs.tags.getTags();
 
     architects.hits.forEach(function(element,index,array){

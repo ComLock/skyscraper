@@ -37,24 +37,30 @@ let architects = (function() {
             let sessionStorageKey = args.sessionStorageKey;
             var storedTags = JSON.parse(sessionStorage.getItem(sessionStorageKey));
             console.log('Update architects based on tags: ' + storedTags);
-            fetch(config.componentUrl, {
-                method: 'POST',
-                headers: {
-                    "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-                },
-                body: 'tags=french'
-            })
-            .then(function (response) {
+                fetch(config.componentUrl+ '?tags='+storedTags, {
+                    method: 'get'/*,
+                    headers: {
+                        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+                    },
+                    body: 'tags=french'*/
+                })
+                .then(function(response) {
+                    return response.text();
+                })
+                .then(function(text) {
+                    console.log('Request successful', text);
+                    document.getElementById(config.componentId).innerHTML = text;
+                })
+                /*.then(function (response) {
+                console.log(response.status);
+                console.log(response.type);
                 if (response.status !== 200) {
                     console.log('Looks like there was a problem. Status Code: ' +
                         response.status);
                     return;
-                }
-                console.log(response);
-                console.log(response.body);
-                //document.getElementById(config.componentId).innerHTML = response.body;
+                }*/
 
-            })
+                //
             .catch(function (error) {
                 console.log('Request failed', error);
             });
