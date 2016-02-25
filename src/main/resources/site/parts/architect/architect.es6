@@ -25,18 +25,22 @@ function handleGet(req) {
     libs.util.log(dom.getElementById('heading').textContent);
     //Test end
 
-    /*
-    const architectClientScript = libs.portal.assetUrl({
-        path: 'parts/architect/architectClient.js'
-    });
-
-    const architectCss = libs.portal.assetUrl({
-        path: 'parts/architect/architect.css'
-    });
-    */
 
     let architectClientScript = '';
     let architectCss = '';
+
+
+//    architectClientScript = libs.portal.assetUrl({
+//        path: 'parts/architect/architectClient.js'
+//    });
+
+    architectCss = libs.portal.assetUrl({
+        path: 'parts/architect/architect.css'
+    });
+
+
+
+
 
     return {
         body: libs.thymeleaf.render(view, model),
