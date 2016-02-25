@@ -1,7 +1,10 @@
+var DomParser = require('dom-parser');
+
 const libs = {
     portal: require('/lib/xp/portal'),
     thymeleaf: require('/lib/xp/thymeleaf'),
-    content: require('/lib/xp/content')
+    content: require('/lib/xp/content'),
+    util: require('/lib/enonic/util/util')
 };
 
 exports.get = handleGet;
@@ -14,6 +17,14 @@ function handleGet(req) {
 
     let model = getModel(content);
 
+    //These lines are made for testing, and that just what they do!
+    let parser = new DomParser();
+    let htmlString = '<html><body><h1 id="heading">Test use of npm lib in controller</h1></body></html>';
+    let dom = parser.parseFromString(htmlString);
+    libs.util.log(`dom ${dom}`);
+    libs.util.log(dom.getElementById('heading').textContent);
+    //Test end
+
     /*
     const architectClientScript = libs.portal.assetUrl({
         path: 'parts/architect/architectClient.js'
@@ -24,8 +35,8 @@ function handleGet(req) {
     });
     */
 
-    const architectClientScript = '';
-    const architectCss = '';
+    let architectClientScript = '';
+    let architectCss = '';
 
     return {
         body: libs.thymeleaf.render(view, model),
@@ -39,8 +50,8 @@ function handleGet(req) {
 }
 
 const getModel = function(content){
-
-    /*let imageUrl = libs.portal.imageUrl({
+    /*
+    let imageUrl = libs.portal.imageUrl({
         id: content.data.image,
         scale: 'height(400)',
         filter: 'rounded(1);sharpen();border(2,0x777777)'

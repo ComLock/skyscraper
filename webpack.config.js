@@ -73,6 +73,31 @@ module.exports =
         }
     },
     {
+        entry: './src/main/resources/site/parts/architect/architect.es6',
+        output: {
+            path: './build/resources/main/site/parts/architect/',
+            filename: "architect.js",
+            libraryTarget: "commonjs"
+        },
+        externals: [
+            "/lib/xp/thymeleaf",
+            "/lib/xp/portal",
+            "/lib/xp/content",
+            "/lib/enonic/util/util"
+        ],
+        module: {
+            loaders: [
+                {
+                    test: /\.es6$/,
+                    loader: 'babel-loader',
+                    query: {
+                        presets: ['es2015']
+                    }
+                }
+            ]
+        }
+    },
+    {
         entry: './src/test/resources/site/parts/architect/architect-test.es6',
         output: {
             path: './build/resources/test/site/parts/architect/',
