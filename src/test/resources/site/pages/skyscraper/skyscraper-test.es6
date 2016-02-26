@@ -15,29 +15,11 @@ function defaultSetup() {
     libs.portalMock.mockContent(getMockedContent());
 }
 
-exports.testGet = function () {
+exports.testSkyscraperPartContenttype = function () {
     defaultSetup();
-
-
-    libs.util.log('Get result');
     var result = controller.get();
-
-    libs.util.log(result);
-
     libs.assert.assertEquals('text/html', result.contentType);
-    libs.assert.assertNotNull(result.body);
 };
-
-exports.testTrue = function () {
-    defaultSetup();
-    libs.assert.assertTrue(true);
-};
-
-exports.testNull = function () {
-    defaultSetup();
-    libs.assert.assertNull(null);
-};
-
 
 
 var getMockedContent = function(){

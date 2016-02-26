@@ -3,17 +3,17 @@ var DomParser = require('dom-parser');
 
 let architects = (function() {
     let listener;
-    let config;
+
     const init = function() {
-        console.log('init');
-        config = window.com_enonic_starter_skyscraper_architectsConfig;
+        Object.assign(config, window[config.enonicnamespace+'_Config']);
+        config.partElement = document.getElementById(config.enonicnamespace);
         initMasonry();
         eventListener();
         setSelectedTags();
     };
 
     const initMasonry = function() {
-        var grid = document.querySelector(config.componentId + ' .grid-architects');
+        var grid = config.partElement.querySelector('.grid-architects');
         var msnry = new Masonry( '.grid-architects', {
             gutter: 10,
             itemSelector: '.grid-item-architect'
@@ -22,7 +22,7 @@ let architects = (function() {
 
     const setSelectedTags = function(){
         let storedTags = JSON.parse(sessionStorage.getItem(config.sessionStorageKey));
-        let tagElements = document.querySelectorAll('#' + config.componentId + ' .tag');
+        let tagElements = config.partElement.querySelectorAll('.tag');
         if (!storedTags || !tagElements){return;}
 
         for (let i = 0; i < tagElements.length; i++){
@@ -37,7 +37,9 @@ let architects = (function() {
     const eventListener = function() {
         eventEmitter.on('clickTag', listener = function(args) {
             var storedTags = JSON.parse(sessionStorage.getItem(config.sessionStorageKey));
-            fetch(config.componentUrl+ '?tags='+storedTags, {
+            let fetchUrl = config.componentUrl+ '?tags='+storedTags;
+            console.log('Fetch from ' + fetchUrl);
+            fetch(fetchUrl, {
                 method: 'get'
             })
             .then(function(response) {
@@ -49,9 +51,9 @@ let architects = (function() {
                 }
                 var parser = new DomParser();
                 var dom = parser.parseFromString(text);
-                let newHtml = dom.getElementById(config.componentId);
-                let oldHtml = document.getElementById(config.componentId);
-                if (newHtml.innerHTML && !Object.is(newHtml,oldHtml)){
+                let newHtml = dom.getElementById(config.enonicnamespace);
+                let oldHtml = config.partElement;
+                if (newHtml && oldHtml && newHtml.innerHTML && oldHtml.innerHTML && !Object.is(newHtml,oldHtml)){
                     oldHtml.innerHTML = newHtml.innerHTML;
                     initMasonry();
                     setSelectedTags();
@@ -71,6 +73,20 @@ let architects = (function() {
 })();
 
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('DOMContentLoaded architectsClient');
     architects.init();
 });
+
+
+/**
+ * Current Script Namespace
+ *
+ * Get the dir path to the currently executing script file
+ * which is always the last one in the scripts array with
+ * an [src] attr
+ */
+var config = {};
+(function () {
+    var scripts = document.querySelectorAll( 'script[src]' );
+    var currentScript = scripts[ scripts.length - 1 ];
+    config.enonicnamespace = currentScript.dataset.enonicnamespacescript;
+})();

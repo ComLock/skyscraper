@@ -1,6 +1,4 @@
-var DomParser = require('dom-parser');
-
-const libs = {
+var libs = {
     portal: require('/lib/xp/portal'),
     thymeleaf: require('/lib/xp/thymeleaf'),
     content: require('/lib/xp/content'),
@@ -12,18 +10,11 @@ exports.post = handleGet;
 
 
 function handleGet(req) {
+
     const view = resolve('architect.html');
     const content = libs.portal.getContent();
 
     let model = getModel(content);
-
-    //These lines are made for testing, and that just what they do!
-    let parser = new DomParser();
-    let htmlString = '<html><body><h1 id="heading">Test use of npm lib in controller</h1></body></html>';
-    let dom = parser.parseFromString(htmlString);
-    libs.util.log(`dom ${dom}`);
-    libs.util.log(dom.getElementById('heading').textContent);
-    //Test end
 
     let architectClientScript = libs.portal.assetUrl({
         path: 'parts/architect/architectClient.js'
@@ -33,9 +24,11 @@ function handleGet(req) {
         path: 'parts/architect/architect.css'
     });
 
+    let body = libs.thymeleaf.render(view, model);
+
     return {
         contentType:'text/html',
-        body: libs.thymeleaf.render(view, model),
+        body: body,
         pageContributions: {
             headEnd: [
                 "<link href='" + architectCss + "' rel='stylesheet' type='text/css'/>",

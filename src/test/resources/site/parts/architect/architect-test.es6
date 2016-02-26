@@ -9,42 +9,30 @@ const libs = {
 
 var controller = require('./architect');
 
-exports.testNpm = function () {
+exports.testArchitectPartContenttype = function () {
     defaultSetup();
-    const result = controller.get({params: {contentId: '42'}});
+    const result = controller.get();
+    libs.assert.assertEquals(result.contentType, "text/html");
+};
+
+exports.testArchitectPartCorrectHeading = function () {
+    defaultSetup();
+    const result = controller.get();
     var parser = new DomParser();
-    var dom = parser.parseFromString(result);
-    libs.util.log(dom);
-    libs.assert.assertTrue(true);
-
-    /*libs.assert.assertNotNull(dom.getElementById('heading'));*/
-
-    /*
+    var dom = parser.parseFromString(result.body);
     libs.assert.assertEquals(
-        defaultContent().displayName,
+        getMockedContent().displayName,
         dom.getElementById('heading').textContent);
-    */
-
-};
-
-exports.testTrue = function () {
-    defaultSetup();
-    libs.assert.assertTrue(true);
-};
-
-exports.testNull = function () {
-    defaultSetup();
-    libs.assert.assertNull(null);
 };
 
 function defaultSetup() {
     libs.portalMock.mockSite({});
     libs.portalMock.mockSiteConfig({});
-    libs.portalMock.mockContent(defaultContent());
+    libs.portalMock.mockContent(getMockedContent());
     libs.contentMock.mockQuery({hits: []});
 }
 
-function defaultContent() {
+function getMockedContent() {
     return {
         _id: '42',
         displayName: 'Louis Henry Sullivan',

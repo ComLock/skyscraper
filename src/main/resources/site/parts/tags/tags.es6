@@ -3,7 +3,7 @@ const libs = {
     thymeleaf: require('/lib/xp/thymeleaf'),
     content: require('/lib/xp/content'),
     util: require('/lib/enonic/util/util'),
-    namespaces: require('/lib/enonic/namespaces')
+    enonicnamespace: require('/lib/enonic/enonicnamespace')
 };
 
 exports.get = handleGet;
@@ -22,12 +22,13 @@ function handleGet(req) {
         path: 'parts/tags/tags.css'
     });
 
+    let namespacePart = libs.enonicnamespace.getPartNS(app.name,libs.portal.getComponent());
     return {
         body: libs.thymeleaf.render(view, model),
         pageContributions: {
             headEnd: [
                 "<link href='" + tagsCss + "' rel='stylesheet' type='text/css'/>",
-                "<script src='" + tagsClientScript + "' type='text/javascript'></script>"
+                "<script src='" + tagsClientScript + "' type='text/javascript' data-enonicnamespacescript='"+namespacePart+"'></script>"
             ]
         }
     };
@@ -35,7 +36,7 @@ function handleGet(req) {
 
 const getModel = function(){
     let model = {
-        namespaces: libs.namespaces.get(app.name, libs.portal.getComponent()),
+        enonicnamespace: libs.enonicnamespace.getNS(app.name, libs.portal.getComponent()),
         componentUrl: libs.portal.componentUrl({}),
         updateTagsServiceUrl: libs.portal.serviceUrl({
             service: 'updateTags',

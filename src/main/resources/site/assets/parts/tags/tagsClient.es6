@@ -2,16 +2,18 @@ const Masonry = require('masonry-layout');
 
 let com_enonic_starter_skyscraper_tagsClient = (function() {
 
-    let config;
     const init = function() {
-        config = window.com_enonic_starter_skyscraper_tagsConfig;
+        Object.assign(config, window[config.enonicnamespace+'_Config']);
+        config.partElementSelector = '*[data-enonicnamespace~="'+config.enonicnamespace+'"]';
+        config.partElement = document.querySelector(config.partElementSelector);
+
         registerTagsClickEvent();
         initMasonry();
         initSelectedTags();
     };
 
     const initMasonry = function() {
-        var grid = document.querySelector(config.componentId + ' .grid-tags');
+        var grid = config.partElement.querySelector('.grid-tags');
         var msnry = new Masonry( '.grid-tags', {
             gutter: 2,
             itemSelector: '.grid-item-tag'
@@ -20,7 +22,7 @@ let com_enonic_starter_skyscraper_tagsClient = (function() {
 
     const initSelectedTags = function(){
         let storedTags = JSON.parse(sessionStorage.getItem(config.sessionStorageKey));
-        let tagElements = document.querySelectorAll('#' + config.componentId + ' .tag');
+        let tagElements = config.partElement.querySelectorAll('.tag');
         if (!storedTags || !tagElements){return;}
 
         for (let i = 0; i < tagElements.length; i++){
@@ -31,8 +33,8 @@ let com_enonic_starter_skyscraper_tagsClient = (function() {
     };
 
     const registerTagsClickEvent = function() {
-        let tags = document.getElementById(config.componentId);
-        tags.addEventListener('click', handleTagsClick, false);
+        console.log('Add click listender to ' + config.partElement);
+        config.partElement.addEventListener('click', handleTagsClick, false);
     };
 
     var handleTagsClick = function(event) {
@@ -76,6 +78,19 @@ let com_enonic_starter_skyscraper_tagsClient = (function() {
 
 document.addEventListener('DOMContentLoaded', function () {
     com_enonic_starter_skyscraper_tagsClient.init();
-
 });
+
+/**
+ * Current Script Namespace
+ *
+ * Get the dir path to the currently executing script file
+ * which is always the last one in the scripts array with
+ * an [src] attr
+ */
+var config = {};
+(function () {
+    var scripts = document.querySelectorAll( 'script[src]' );
+    var currentScript = scripts[ scripts.length - 1 ];
+    config.enonicnamespace = currentScript.dataset.enonicnamespacescript;
+})();
 
