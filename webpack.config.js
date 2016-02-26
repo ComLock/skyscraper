@@ -98,6 +98,31 @@ module.exports =
         }
     },
     {
+        entry: './src/main/resources/site/pages/skyscraper/skyscraper.es6',
+        output: {
+            path: './build/resources/main/site/pages/skyscraper/',
+            filename: "skyscraper.js",
+            libraryTarget: "commonjs"
+        },
+        externals: [
+            "/lib/xp/thymeleaf",
+            "/lib/xp/portal",
+            "/lib/enonic/util/util",
+            "/lib/enonic/menu"
+        ],
+        module: {
+            loaders: [
+                {
+                    test: /\.es6$/,
+                    loader: 'babel-loader',
+                    query: {
+                        presets: ['es2015']
+                    }
+                }
+            ]
+        }
+    },
+    {
         entry: './src/test/resources/site/parts/architect/architect-test.es6',
         output: {
             path: './build/resources/test/site/parts/architect/',
@@ -105,7 +130,33 @@ module.exports =
             libraryTarget: "commonjs"
         },
         externals: [
-            "./architect.js",
+            "./architect",
+            "/lib/xp/assert",
+            "/lib/xp/mock/portal",
+            "/lib/xp/mock/content",
+            "/lib/enonic/util/util"
+        ],
+        module: {
+            loaders: [
+                {
+                    test: /\.es6$/,
+                    loader: 'babel-loader',
+                    query: {
+                        presets: ['es2015']
+                    }
+                }
+            ]
+        }
+    },
+    {
+        entry: './src/test/resources/site/pages/skyscraper/skyscraper-test.es6',
+        output: {
+            path: './build/resources/test/site/pages/skyscraper/',
+            filename: "skyscraper-test.js",
+            libraryTarget: "commonjs"
+        },
+        externals: [
+            "./skyscraper",
             "/lib/xp/assert",
             "/lib/xp/mock/portal",
             "/lib/xp/mock/content",

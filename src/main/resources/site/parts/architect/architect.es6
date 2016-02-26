@@ -25,24 +25,16 @@ function handleGet(req) {
     libs.util.log(dom.getElementById('heading').textContent);
     //Test end
 
+    let architectClientScript = libs.portal.assetUrl({
+        path: 'parts/architect/architectClient.js'
+    });
 
-    let architectClientScript = '';
-    let architectCss = '';
-
-
-//    architectClientScript = libs.portal.assetUrl({
-//        path: 'parts/architect/architectClient.js'
-//    });
-
-    architectCss = libs.portal.assetUrl({
+    let architectCss = libs.portal.assetUrl({
         path: 'parts/architect/architect.css'
     });
 
-
-
-
-
     return {
+        contentType:'text/html',
         body: libs.thymeleaf.render(view, model),
         pageContributions: {
             headEnd: [
@@ -54,7 +46,7 @@ function handleGet(req) {
 }
 
 const getModel = function(content){
-    /*
+
     let imageUrl = libs.portal.imageUrl({
         id: content.data.image,
         scale: 'height(400)',
@@ -63,10 +55,9 @@ const getModel = function(content){
 
     let bodyHtml = libs.portal.processHtml({
         value: content.data.bodyText
-    });*/
+    });
 
-    let imageUrl = '';
-    let bodyHtml = '<html><body><h1 id="heading">Test</h1></body></html>';
+
 
     return {
         architect:{

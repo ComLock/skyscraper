@@ -9,7 +9,7 @@
 
 <body id="skyscraperStarter" role="document">
 
-<div role="main" data-th-attr="data-portal-region=${mainRegion.name}">
+<div role="main" data-th-if="${mainRegion}" data-th-attr="data-portal-region=${mainRegion.name}">
     <div data-th-each="component : ${mainRegion.components}" data-th-remove="tag">
         <div data-portal-component="${component.path}" data-th-remove="tag"></div>
     </div>

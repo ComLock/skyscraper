@@ -2,7 +2,7 @@ package com.enonic.starter.skyscraper.parts;
 
 import com.enonic.xp.testing.script.ScriptRunnerSupport;
 
-public class architectTest extends ScriptRunnerSupport {
+public class ArchitectTest extends ScriptRunnerSupport {
 
     @Override
     public String getScriptTestFile() {

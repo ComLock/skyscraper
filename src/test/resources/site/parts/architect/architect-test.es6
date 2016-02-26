@@ -1,5 +1,4 @@
 var DomParser = require('dom-parser');
-var controller = require('./architect.js');
 
 const libs = {
     assert: require('/lib/xp/assert'),
@@ -7,6 +6,8 @@ const libs = {
     contentMock: require('/lib/xp/mock/content'),
     util: require('/lib/enonic/util/util')
 }
+
+var controller = require('./architect');
 
 exports.testNpm = function () {
     defaultSetup();
@@ -27,10 +28,12 @@ exports.testNpm = function () {
 };
 
 exports.testTrue = function () {
+    defaultSetup();
     libs.assert.assertTrue(true);
 };
 
 exports.testNull = function () {
+    defaultSetup();
     libs.assert.assertNull(null);
 };
 

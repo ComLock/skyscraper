@@ -7,7 +7,7 @@ function createUrl(name, params) {
     return `${name}/${JSON.stringify(params)}`;
 }
 
-const mock = {
+var mock = {
     assetUrl: (params) => {
         return createUrl('asset', params);
     },

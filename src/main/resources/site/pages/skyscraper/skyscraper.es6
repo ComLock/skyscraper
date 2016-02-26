@@ -1,3 +1,5 @@
+var DomParser = require('dom-parser');
+
 var libs = {
     portal: require('/lib/xp/portal'),
     thymeleaf: require('/lib/xp/thymeleaf'),
@@ -6,6 +8,7 @@ var libs = {
 };
 
 exports.get = handleGet;
+exports.post = handleGet;
 
 function handleGet(req) {
     var site = libs.portal.getSite();
@@ -14,9 +17,11 @@ function handleGet(req) {
     var model = createModel();
 
     function createModel() {
-
         var model = {};
+        libs.util.log('Get mainRegion from content:');
+        libs.util.log(libs.portal.getContent());
         model.mainRegion = content.page.regions['main'];
+        libs.util.log('Got mainRegion');
         model.sitePath = site['_path'];
         model.currentPath = content._path;
         model.pageTitle = content.displayName;
@@ -24,6 +29,12 @@ function handleGet(req) {
 
         return model;
     }
+
+    let parser = new DomParser();
+    let htmlString = '<html><body><h1 id="heading">Test use of npm lib in skyscraper page controller</h1></body></html>';
+    let dom = parser.parseFromString(htmlString);
+    libs.util.log(`dom ${dom}`);
+    libs.util.log(dom.getElementById('heading').textContent);
 
     const skyscraperScript = libs.portal.assetUrl({
         path: 'pages/skyscraper/skyscraperClient.js'
@@ -34,6 +45,7 @@ function handleGet(req) {
     });
 
     return {
+        contentType:'text/html',
         body: libs.thymeleaf.render(view, model),
         pageContributions: {
             headBegin: [
