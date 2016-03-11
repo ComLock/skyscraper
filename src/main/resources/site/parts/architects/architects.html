@@ -1,12 +1,10 @@
-<div class="grid-architects" data-th-id="${enonicnamespace.part}" data-th-attr="data-enonicnamespace=${enonicnamespace.part}">
+<div class="grid-architects" data-th-id="${partnamespace.part}" data-th-attr="data-partnamespace=${partnamespace.part}">
         <script data-th-inline="text">
             /*<![CDATA[*/
-            window.[[${enonicnamespace.part+'_Config'}]] = {
-                componentId: '[[${enonicnamespace.part}]]',
+            window.[[${partnamespace.part}]] = {
+                componentId: '[[${partnamespace.part}]]',
                 componentUrl: '[[${componentUrl}]]',
-                sessionStorageKey: '[[${enonicnamespace.app}]]_selectedTags',
-                pageComponents: '[[${pageComponents}]]',
-                pageComponentsNamespaces: '[[${pageComponentsNamespaces}]]'
+                sessionStorageKey: '[[${partnamespace.app}]]_selectedTags'
             };
             /*]]>*/
         </script>

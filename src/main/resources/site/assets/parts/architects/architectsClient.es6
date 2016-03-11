@@ -1,20 +1,21 @@
-var Masonry = require('masonry-layout');
-var DomParser = require('dom-parser');
+let Masonry = require('masonry-layout');
+let DomParser = require('dom-parser');
 
 let architects = (function() {
     let listener;
 
     const init = function() {
-        Object.assign(config, window[config.partnamespace+'_Config']);
-        config.partElement = document.getElementById(config.partnamespace);
+        Object.assign(config, window[config.partnamespace]);
+        config.partElementSelector = '*[data-partnamespace="'+config.partnamespace+'"]';
+        config.partElement = document.querySelector(config.partElementSelector);
         initMasonry();
         eventListener();
         setSelectedTags();
     };
 
     const initMasonry = function() {
-        var grid = config.partElement.querySelector('.grid-architects');
-        var msnry = new Masonry( '.grid-architects', {
+        let grid = config.partElement.querySelector('.grid-architects');
+        let msnry = new Masonry( '.grid-architects', {
             gutter: 10,
             itemSelector: '.grid-item-architect'
         });
@@ -34,12 +35,40 @@ let architects = (function() {
         }
     };
 
+    const loadDoc = function (urlToFetch){
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                handleNewArchitects(xhttp.responseText)
+            }
+        };
+        xhttp.open("GET", urlToFetch, true);
+        xhttp.send();
+    };
+
+    const handleNewArchitects = function(responseText){
+        let parser = new DomParser();
+        let dom = parser.parseFromString(responseText);
+        let newHtml = dom.getElementById(config.partnamespace);
+        let oldHtml = config.partElement;
+        if (newHtml && oldHtml && newHtml.innerHTML && oldHtml.innerHTML && !Object.is(newHtml,oldHtml)){
+            oldHtml.innerHTML = newHtml.innerHTML;
+            initMasonry();
+            setSelectedTags();
+        }
+    };
+
     const eventListener = function() {
         eventEmitter.on('clickTag', listener = function(args) {
-            var storedTags = JSON.parse(sessionStorage.getItem(config.sessionStorageKey));
-            let fetchUrl = config.componentUrl+ '?tags='+storedTags;
-            console.log('Fetch from ' + fetchUrl);
-            fetch(fetchUrl, {
+            let storedTags = JSON.parse(sessionStorage.getItem(config.sessionStorageKey));
+            let urlToFetch = config.componentUrl+ '?tags='+storedTags;
+            console.log('Fetch from ' + urlToFetch);
+
+            loadDoc(urlToFetch);
+
+
+
+            /*fetch(fetchUrl, {
                 method: 'get'
             })
             .then(function(response) {
@@ -62,7 +91,8 @@ let architects = (function() {
             })
             .catch(function (error) {
                 console.log('Request failed', error);
-            });
+            });*/
+
         });
     };
 
@@ -84,9 +114,9 @@ document.addEventListener('DOMContentLoaded', function () {
  * which is always the last one in the scripts array with
  * an [src] attr
  */
-var config = {};
+let config = {};
 (function () {
-    var scripts = document.querySelectorAll( 'script[src]' );
-    var currentScript = scripts[ scripts.length - 1 ];
-    config.partnamespace = currentScript.dataset.enonicnamespacescript;
+    let scripts = document.querySelectorAll( 'script[src]' );
+    let currentScript = scripts[ scripts.length - 1 ];
+    config.partnamespace = currentScript.dataset.partnamespacescript;
 })();

@@ -78,3 +78,16 @@ repositories {
         url 'http://repo.enonic.com/public'
     }
 }
+
+publishing {
+    publications {
+        mavenJava( MavenPublication ) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url 'http://repo.enonic.net/artifactory/public'
+        }
+    }
+}

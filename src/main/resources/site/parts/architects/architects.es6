@@ -57,8 +57,6 @@ const getModel = function(architects){
         architects:[]
     };
 
-    var tags = libs.tags.getTags();
-
     architects.hits.forEach(function(element,index,array){
         model.architects.push(
             {
@@ -68,8 +66,7 @@ const getModel = function(architects){
                     scale: 'width(200)',
                     filter: 'rounded(1);sharpen();border(2,0x777777)'
                 }),
-                preface: element.data.preface,
-                tags: element.data.tags,
+                preface: element.data.preface
                 /*bodyText: libs.portal.processHtml({
                     value: element.data.bodyText
                 })*/
