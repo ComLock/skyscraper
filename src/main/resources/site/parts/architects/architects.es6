@@ -3,8 +3,7 @@ const libs = {
     thymeleaf: require('/lib/xp/thymeleaf'),
     util: require('/lib/enonic/util/util'),
     content: require('/lib/xp/content'),
-    tags: require('/lib/skyscraper/tags'),
-    enonicnamespace: require('/lib/enonic/enonicnamespace'),
+    partnamespace: require('/lib/openxp/partnamespace'),
     jsonPath: require('/lib/openxp/jsonpath')
 
 };
@@ -32,21 +31,18 @@ function handleGet(req) {
 
     let model = getModel(architects);
 
-    const architectsClientScript = libs.portal.assetUrl({
-        path: 'parts/architects/architectsClient.js'
-    });
 
     const architectsCss = libs.portal.assetUrl({
         path: 'parts/architects/architects.css'
     });
-    let namespacePart = libs.enonicnamespace.getPartNS(app.name,libs.portal.getComponent());
+
     return {
         contentType: 'text/html',
         body: libs.thymeleaf.render(view, model),
         pageContributions: {
             headEnd: [
                 "<link href='" + architectsCss + "' rel='stylesheet' type='text/css'/>",
-                "<script src='" + architectsClientScript + "' type='text/javascript' data-enonicnamespacescript='"+namespacePart+"'></script>"
+                libs.partnamespace.getNsScript('parts/architects/architectsClient.js')
             ]
         }
     }
@@ -56,8 +52,7 @@ const getModel = function(architects){
     let pageComponents = libs.jsonPath.process(libs.portal.getContent(), '$..components.*');
 
     let model = {
-        pageComponentsNamespaces: libs.enonicnamespace.getPageComponentsNamespaces(pageComponents),
-        enonicnamespace: libs.enonicnamespace.getNS(app.name, libs.portal.getComponent()),
+        partnamespace: libs.partnamespace.getNs(),
         componentUrl: libs.portal.componentUrl({}),
         architects:[]
     };

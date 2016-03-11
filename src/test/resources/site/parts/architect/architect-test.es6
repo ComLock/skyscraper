@@ -7,7 +7,7 @@ const libs = {
     util: require('/lib/enonic/util/util')
 }
 
-var controller = require('./architect');
+var controller = require('./architect.js');
 
 exports.testArchitectPartContenttype = function () {
     defaultSetup();

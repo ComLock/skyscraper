@@ -14,4 +14,4 @@ exports.mockQuery = function(json) {
     queryJson = json;
 };
 
-__.registerMock('/lib/xp/content.js', mock);
+__.registerMock('/site/lib/xp/content.js', mock);

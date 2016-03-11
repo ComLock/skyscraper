@@ -5,8 +5,8 @@ let architects = (function() {
     let listener;
 
     const init = function() {
-        Object.assign(config, window[config.enonicnamespace+'_Config']);
-        config.partElement = document.getElementById(config.enonicnamespace);
+        Object.assign(config, window[config.partnamespace+'_Config']);
+        config.partElement = document.getElementById(config.partnamespace);
         initMasonry();
         eventListener();
         setSelectedTags();
@@ -51,7 +51,7 @@ let architects = (function() {
                 }
                 var parser = new DomParser();
                 var dom = parser.parseFromString(text);
-                let newHtml = dom.getElementById(config.enonicnamespace);
+                let newHtml = dom.getElementById(config.partnamespace);
                 let oldHtml = config.partElement;
                 if (newHtml && oldHtml && newHtml.innerHTML && oldHtml.innerHTML && !Object.is(newHtml,oldHtml)){
                     oldHtml.innerHTML = newHtml.innerHTML;
@@ -88,5 +88,5 @@ var config = {};
 (function () {
     var scripts = document.querySelectorAll( 'script[src]' );
     var currentScript = scripts[ scripts.length - 1 ];
-    config.enonicnamespace = currentScript.dataset.enonicnamespacescript;
+    config.partnamespace = currentScript.dataset.enonicnamespacescript;
 })();

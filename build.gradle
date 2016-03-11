@@ -24,7 +24,7 @@ apply plugin: 'com.moowork.node'
 app {
     name = project.appName
     displayName = project.displayName
-    vendorName = 'Enonic AS'
+    vendorName = 'rfo'
     vendorUrl = 'http://enonic.com'
 }
 
@@ -39,10 +39,11 @@ dependencies {
     include "com.enonic.xp:lib-xslt:${xpVersion}"
     include "com.enonic.xp:lib-mustache:${xpVersion}"
     include "com.enonic.xp:lib-i18n:${xpVersion}"
-    include "openxp:lib-jsonpath:1.0.1"
-
     include "com.enonic.lib:util:1.0.0"
     include "com.enonic.lib:menu:1.1.1"
+    include "openxp.lib:jsonpath:1.1.0"
+    include "openxp.lib:partnamespace:0.2.0"
+
 
     testCompile 'junit:junit:4.10'
     testCompile "com.enonic.xp:testing:${xpVersion}"
@@ -53,35 +54,12 @@ node{
     download true
 }
 
-task babelJs(type:NodeTask, dependsOn:'npmInstall'){
-    script = file('node_modules/babel-cli/lib/babel')
-    args = [
-            "-d",
-            "$buildDir/resources/main",
-            "-x",
-            ".es6",
-            "--presets",
-            "es2015",
-            "src/main/resources"
-    ]
-    inputs.dir "src/main/resources"
-    outputs.dir "$buildDir/resources/main"
+task eslint(type:NodeTask, dependsOn:'npmInstall'){
+    script = file('node_modules/eslint/bin/eslint.js')
+    args = ['src/main/resources/site/',
+            '--ext ".js, .es6"']
 }
-
-task babelJsTest(type:NodeTask, dependsOn:'npmInstall'){
-    script = file('node_modules/babel-cli/lib/babel')
-    args = [
-            "-d",
-            "$buildDir/resources/test",
-            "-x",
-            ".es6",
-            "--presets",
-            "es2015",
-            "src/test/resources"
-    ]
-    inputs.dir "src/test/resources"
-    outputs.dir "$buildDir/resources/test"
-}
+jar.dependsOn += eslint
 
 task webpack(type:NodeTask, dependsOn:'npmInstall') {
     script = file('node_modules/webpack/bin/webpack.js')
@@ -89,17 +67,9 @@ task webpack(type:NodeTask, dependsOn:'npmInstall') {
             '--config webpack.config.js'
     ]
 }
-
-webpack.mustRunAfter(babelJs, babelJsTest)
-
-test.dependsOn += babelJs
-test.dependsOn += babelJsTest
+jar.dependsOn += webpack
 test.dependsOn += webpack
 
-
-jar.dependsOn += babelJs
-jar.dependsOn += babelJsTest
-jar.dependsOn += webpack
 
 repositories {
     mavenLocal()

@@ -1,10 +1,13 @@
-<div class="grid-tags" data-th-attr="data-enonicnamespace=${enonicnamespace.part}">
+<div class="grid-tags" data-th-attr="data-partnamespace=${partnamespace.part}">
     <script data-th-inline="text">
         /*<![CDATA[*/
-        window.[[${enonicnamespace.part+'_Config'}]] = {
+        window.[[${partnamespace.part}]] = {
+            appNS: '[[${partnamespace.app}]]',
+            partNS: '[[${partnamespace.part}]]',
+            localNS: '[[${partnamespace.local}]]',
             componentUrl: '[[${componentUrl}]]',
             updateTagsServiceUrl: '[[${updateTagsServiceUrl}]]',
-            sessionStorageKey: '[[${enonicnamespace.app}]]_selectedTags'
+            sessionStorageKey: '[[${partnamespace.app}]]_selectedTags'
         };
         /*]]>*/
     </script>

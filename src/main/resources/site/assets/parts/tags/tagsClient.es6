@@ -1,10 +1,12 @@
 const Masonry = require('masonry-layout');
 
-let com_enonic_starter_skyscraper_tagsClient = (function() {
+let tagsClient = (function() {
 
     const init = function() {
-        Object.assign(config, window[config.enonicnamespace+'_Config']);
-        config.partElementSelector = '*[data-enonicnamespace~="'+config.enonicnamespace+'"]';
+
+        //Add inline script config from part to config object
+        Object.assign(config, window[config.partnamespace]);
+        config.partElementSelector = '*[data-partnamespace="'+config.partnamespace+'"]';
         config.partElement = document.querySelector(config.partElementSelector);
 
         registerTagsClickEvent();
@@ -33,7 +35,7 @@ let com_enonic_starter_skyscraper_tagsClient = (function() {
     };
 
     const registerTagsClickEvent = function() {
-        console.log('Add click listender to ' + config.partElement);
+        console.log('Add click listener to ' + config.partElement);
         config.partElement.addEventListener('click', handleTagsClick, false);
     };
 
@@ -77,7 +79,7 @@ let com_enonic_starter_skyscraper_tagsClient = (function() {
 })();
 
 document.addEventListener('DOMContentLoaded', function () {
-    com_enonic_starter_skyscraper_tagsClient.init();
+    tagsClient.init();
 });
 
 /**
@@ -91,6 +93,6 @@ var config = {};
 (function () {
     var scripts = document.querySelectorAll( 'script[src]' );
     var currentScript = scripts[ scripts.length - 1 ];
-    config.enonicnamespace = currentScript.dataset.enonicnamespacescript;
+    config.partnamespace = currentScript.dataset.partnamespacescript;
 })();
 

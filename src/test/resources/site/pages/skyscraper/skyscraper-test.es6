@@ -7,7 +7,7 @@ var libs = {
     util: require('/lib/enonic/util/util')
 };
 
-var controller = require('./skyscraper');
+var controller = require('./skyscraper.js');
 
 function defaultSetup() {
     libs.portalMock.mockSite({});
