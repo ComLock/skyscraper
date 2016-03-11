@@ -1,0 +1,32 @@
+
+Licenses used by Enonic XP Skyscraper starter
+
+Enonic XP Skyscraper starter - Licensed under The MIT License (MIT)
+https://bitbucket.org/openxp/skyscraper
+
+Other software licenses used by this product:
+
+Enonic XP Partnamespace library - Licensed under The MIT License (MIT)
+https://bitbucket.org/openxp/partnamespace
+
+Enonic XP JSONPath library - Licensed under The MIT License (MIT)
+https://bitbucket.org/openxp/jsonpath
+
+Babel - v6.x - Distributed under MIT License
+
+ESLINT  - v2.3.0 - Distributed under MIT License
+https://www.npmjs.com/package/eslint
+https://github.com/eslint/eslint/blob/master/LICENSE
+
+DOM-PARSER - v0.1.5 - Distributed under ISC License
+https://www.npmjs.com/package/dom-parser
+https://github.com/ershov-konst/dom-parser/blob/master/LICENSE
+http://spdx.org/licenses/ISC
+
+EVENT-EMITTER - v0.3.4 - Distributed under MIT License
+https://www.npmjs.com/package/event-emitter
+https://github.com/medikoo/event-emitter/blob/master/LICENSE
+
+WEBPACK - v1.12.13 - Distributed under MIT License
+https://www.npmjs.com/package/webpack
+https://github.com/webpack/webpack/blob/master/LICENSE

@@ -1,0 +1,6 @@
+Enonic XP Skyscraper starter
+https://bitbucket.org/openxp/skyscraper
+
+Licensed under The MIT License (MIT).
+https://opensource.org/licenses/MIT
+/
