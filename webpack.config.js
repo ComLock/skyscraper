@@ -4,8 +4,8 @@ module.exports =
         {
             entry: {
                 'pages/skyscraper/skyscraperClient': './src/main/resources/site/assets/pages/skyscraper/skyscraperClient.es6',
-                'parts/architect/architectClient': './src/main/resources/site/assets/parts/architect/architectClient.es6',
-                'parts/architects/architectsClient': './src/main/resources/site/assets/parts/architects/architectsClient.es6',
+                'parts/brick/brickClient': './src/main/resources/site/assets/parts/brick/brickClient.es6',
+                'parts/masonry/masonryClient': './src/main/resources/site/assets/parts/masonry/masonryClient.es6',
                 'parts/tags/tagsClient': './src/main/resources/site/assets/parts/tags/tagsClient.es6'
             },
             output: {
@@ -27,8 +27,8 @@ module.exports =
         /* Page and part controllers, layouts, libs and services */
         {
             entry: {
-                'parts/architect/architect': './src/main/resources/site/parts/architect/architect.es6',
-                'parts/architects/architects': './src/main/resources/site/parts/architects/architects.es6',
+                'parts/brick/brick': './src/main/resources/site/parts/brick/brick.es6',
+                'parts/masonry/masonry': './src/main/resources/site/parts/masonry/masonry.es6',
                 'parts/tags/tags': './src/main/resources/site/parts/tags/tags.es6',
                 'pages/skyscraper/skyscraper': './src/main/resources/site/pages/skyscraper/skyscraper.es6'
             },
@@ -61,7 +61,7 @@ module.exports =
         /* Controller tests */
         {
             entry: {
-                'parts/architect/architect-test': './src/test/resources/site/parts/architect/architect-test.es6',
+                'parts/brick/brick-test': './src/test/resources/site/parts/brick/brick-test.es6',
                 'pages/skyscraper/skyscraper-test': './src/test/resources/site/pages/skyscraper/skyscraper-test.es6',
                 'lib/xp/mock/content': './src/test/resources/site/lib/xp/mock/content.es6',
                 'lib/xp/mock/portal': './src/test/resources/site/lib/xp/mock/portal.es6'
@@ -72,7 +72,7 @@ module.exports =
                 libraryTarget: 'commonjs'
             },
             externals: [
-                './architect.js',
+                './brick.js',
                 './skyscraper.js',
                 '/lib/xp/mock/portal',
                 '/lib/xp/mock/content',

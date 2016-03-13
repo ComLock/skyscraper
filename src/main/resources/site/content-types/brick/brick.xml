@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <content-type>
-    <display-name>Architect</display-name>
+    <display-name>Brick</display-name>
     <super-type>base:structured</super-type>
     <form>
-        <field-set name="architect">
-            <label>Architect</label>
+        <field-set name="brick">
+            <label>Brick</label>
             <items>
                 <input name="tags" type="Tag">
                     <label>Tags</label>

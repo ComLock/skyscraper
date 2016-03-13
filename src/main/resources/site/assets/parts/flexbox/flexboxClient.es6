@@ -1,7 +1,6 @@
-let Masonry = require('masonry-layout');
 let DomParser = require('dom-parser');
 
-let architects = (function() {
+let masonryClient = (function() {
     let listener;
 
     const init = function() {
@@ -14,10 +13,10 @@ let architects = (function() {
     };
 
     const initMasonry = function() {
-        let grid = config.partElement.querySelector('.grid-architects');
-        let msnry = new Masonry( '.grid-architects', {
+        let grid = config.partElement.querySelector('.grid-bricks');
+        let msnry = new Masonry( '.grid-bricks', {
             gutter: 10,
-            itemSelector: '.grid-item-architect'
+            itemSelector: '.grid-item-brick'
         });
     };
 
@@ -39,14 +38,14 @@ let architects = (function() {
         let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
-                handleNewArchitects(xhttp.responseText)
+                handleNewBricks(xhttp.responseText)
             }
         };
         xhttp.open("GET", urlToFetch, true);
         xhttp.send();
     };
 
-    const handleNewArchitects = function(responseText){
+    const handleNewBricks = function(responseText){
         let parser = new DomParser();
         let dom = parser.parseFromString(responseText);
         let newHtml = dom.getElementById(config.partnamespace);
@@ -66,33 +65,6 @@ let architects = (function() {
 
             loadDoc(urlToFetch);
 
-
-
-            /*fetch(fetchUrl, {
-                method: 'get'
-            })
-            .then(function(response) {
-                return response.text();
-            })
-            .then(function(text) {
-                if (!text){
-                    return;
-                }
-                var parser = new DomParser();
-                var dom = parser.parseFromString(text);
-                let newHtml = dom.getElementById(config.partnamespace);
-                let oldHtml = config.partElement;
-                if (newHtml && oldHtml && newHtml.innerHTML && oldHtml.innerHTML && !Object.is(newHtml,oldHtml)){
-                    oldHtml.innerHTML = newHtml.innerHTML;
-                    initMasonry();
-                    setSelectedTags();
-                }
-
-            })
-            .catch(function (error) {
-                console.log('Request failed', error);
-            });*/
-
         });
     };
 
@@ -103,7 +75,7 @@ let architects = (function() {
 })();
 
 document.addEventListener('DOMContentLoaded', function () {
-    architects.init();
+    masonryClient.init();
 });
 
 

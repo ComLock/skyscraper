@@ -43,7 +43,7 @@ const getModel = function(){
 
     let content = libs.portal.getContent();
 
-    if (content.type == app.name + ":architect"){
+    if (content.type == app.name + ":brick"){
         model.tags = content.data.tags;
         return model;
     }
@@ -52,7 +52,7 @@ const getModel = function(){
         start: 0,
         count: 100,
         contentTypes: [
-            app.name + ":architect"
+            app.name + ":brick"
         ],
         aggregations: {
             floors: {

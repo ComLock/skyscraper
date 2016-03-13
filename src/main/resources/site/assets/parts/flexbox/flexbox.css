@@ -1,0 +1,32 @@
+#openxp_starter_skyscraper_masonry{
+  max-width: 1200px;
+}
+
+#openxp_starter_skyscraper_masonry .grid-item-brick {
+  width: 250px;
+  margin-bottom: 10px;
+}
+#openxp_starter_skyscraper_masonry .grid-item-brick--width2 {
+  width: 500px;
+}
+
+
+#openxp_starter_skyscraper_masonry .brick{
+  display: flex;
+  flex-direction:column;
+  border: 2px solid black;
+}
+
+#openxp_starter_skyscraper_masonry .brick>*{
+  flex: 1 1 auto
+}
+
+#openxp_starter_skyscraper_masonry .hidden{visibility: hidden}
+
+#openxp_starter_skyscraper_masonry .tags{
+  list-style-type: none;
+}
+
+#openxp_starter_skyscraper_masonry .tags .tag{
+
+}

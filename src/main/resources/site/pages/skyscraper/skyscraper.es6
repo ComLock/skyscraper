@@ -18,10 +18,7 @@ function handleGet(req) {
 
     function createModel() {
         var model = {};
-        libs.util.log('Get mainRegion from content:');
-        libs.util.log(libs.portal.getContent());
         model.mainRegion = content.page.regions['main'];
-        libs.util.log('Got mainRegion');
         model.sitePath = site['_path'];
         model.currentPath = content._path;
         model.pageTitle = content.displayName;

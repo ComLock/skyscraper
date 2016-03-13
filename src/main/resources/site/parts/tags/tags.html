@@ -1,4 +1,4 @@
-<div class="grid-tags" data-th-attr="data-partnamespace=${partnamespace.part}">
+<div id="tags" class="grid-tags" data-th-attr="data-partnamespace=${partnamespace.part}">
     <script data-th-inline="text">
         /*<![CDATA[*/
         window.[[${partnamespace.part}]] = {
@@ -11,12 +11,15 @@
         };
         /*]]>*/
     </script>
-    <div data-th-remove="tag" data-th-if="${aggregations}" data-th-each="aggregation : ${aggregations}">
-        <a class="secondary label radius grid-item-tag tag" data-th-id="${aggregation.key}" data-th-text="${aggregation.key + ' (' + aggregation.docCount + ')'}"/>
-    </div>
 
-    <div data-th-remove="tag" data-th-if="${tags}" data-th-each="tag : ${tags}">
-        <a class="secondary label radius grid-item-tag tag" data-th-id="${tag}" data-th-text="${tag}"/>
-    </div>
-
+    <section class="container">
+        <ul class="tags">
+            <li data-th-each="aggregation : ${aggregations}">
+                <a href="#" data-th-id="${aggregation.key}">
+                    <span data-th-text="${aggregation.key}" data-th-remove="tag"/>
+                    <span data-th-text="${aggregation.docCount}"/>
+                </a>
+            </li>
+        </ul>
+    </section>
 </div>

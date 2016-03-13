@@ -30,3 +30,6 @@ https://github.com/medikoo/event-emitter/blob/master/LICENSE
 WEBPACK - v1.12.13 - Distributed under MIT License
 https://www.npmjs.com/package/webpack
 https://github.com/webpack/webpack/blob/master/LICENSE
+
+MASONRY - Distributed under MIT License
+http://masonry.desandro.com/#mit-license

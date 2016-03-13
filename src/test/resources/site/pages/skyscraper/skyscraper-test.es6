@@ -37,10 +37,10 @@ var getMockedContent = function(){
                             config: {}
                         },
                         {
-                            name: 'Architects',
+                            name: 'Masonry',
                             path: 'main/1',
                             type: 'part',
-                            descriptor: 'com.enonic.starter.skyscraper:architects',
+                            descriptor: 'com.enonic.starter.skyscraper:masonry',
                             config: {}
                         }
                     ],

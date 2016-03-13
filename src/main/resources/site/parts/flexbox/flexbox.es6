@@ -18,22 +18,22 @@ function handleGet(req) {
         tags = tags.replace(',',' ');
         query = "fulltext('data.tags', '"+ tags +"', 'AND')";
     }
-    const view = resolve('architects.html');
+    const view = resolve('flexbox.html');
 
-    const architects= libs.content.query({
+    const bricks= libs.content.query({
         start: 0,
         count: 100,
         query: query,
         contentTypes: [
-            app.name + ":architect"
+            app.name + ":brick"
         ]
     });
 
-    let model = getModel(architects);
+    let model = getModel(bricks);
 
 
-    const architectsCss = libs.portal.assetUrl({
-        path: 'parts/architects/architects.css'
+    const masonryCss = libs.portal.assetUrl({
+        path: 'parts/flexbox/flexbox.css'
     });
 
     return {
@@ -41,24 +41,23 @@ function handleGet(req) {
         body: libs.thymeleaf.render(view, model),
         pageContributions: {
             headEnd: [
-                "<link href='" + architectsCss + "' rel='stylesheet' type='text/css'/>",
-                libs.partnamespace.getNsScript('parts/architects/architectsClient.js')
+                "<link href='" + masonryCss + "' rel='stylesheet' type='text/css'/>",
+                libs.partnamespace.getNsScript('parts/flexbox/flexboxClient.js')
             ]
         }
     }
 }
 
-const getModel = function(architects){
-    let pageComponents = libs.jsonPath.process(libs.portal.getContent(), '$..components.*');
+const getModel = function(bricks){
 
     let model = {
         partnamespace: libs.partnamespace.getNs(),
         componentUrl: libs.portal.componentUrl({}),
-        architects:[]
+        bricks:[]
     };
 
-    architects.hits.forEach(function(element,index,array){
-        model.architects.push(
+    bricks.hits.forEach(function(element,index,array){
+        model.bricks.push(
             {
                 heading: element.displayName,
                 image: libs.portal.imageUrl({
@@ -66,10 +65,12 @@ const getModel = function(architects){
                     scale: 'width(200)',
                     filter: 'rounded(1);sharpen();border(2,0x777777)'
                 }),
-                preface: element.data.preface
+                preface: element.data.preface,
+                tags: element.data.tags
                 /*bodyText: libs.portal.processHtml({
                     value: element.data.bodyText
                 })*/
+
             }
         );
     });

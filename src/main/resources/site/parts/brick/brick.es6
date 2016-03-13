@@ -11,17 +11,17 @@ exports.post = handleGet;
 
 function handleGet(req) {
 
-    const view = resolve('architect.html');
+    const view = resolve('brick.html');
     const content = libs.portal.getContent();
 
     let model = getModel(content);
 
-    let architectClientScript = libs.portal.assetUrl({
-        path: 'parts/architect/architectClient.js'
+    let brickClientScript = libs.portal.assetUrl({
+        path: 'parts/brick/brickClient.js'
     });
 
-    let architectCss = libs.portal.assetUrl({
-        path: 'parts/architect/architect.css'
+    let brickCss = libs.portal.assetUrl({
+        path: 'parts/brick/brick.css'
     });
 
     let body = libs.thymeleaf.render(view, model);
@@ -31,8 +31,8 @@ function handleGet(req) {
         body: body,
         pageContributions: {
             headEnd: [
-                "<link href='" + architectCss + "' rel='stylesheet' type='text/css'/>",
-                "<script src='" + architectClientScript + "' type='text/javascript'></script>"
+                "<link href='" + brickCss + "' rel='stylesheet' type='text/css'/>",
+                "<script src='" + brickClientScript + "' type='text/javascript'></script>"
             ]
         }
     };
@@ -50,14 +50,13 @@ const getModel = function(content){
         value: content.data.bodyText
     });
 
-
-
     return {
-        architect:{
+        brick:{
             heading: content.displayName,
             image: imageUrl,
             preface: content.data.preface,
-            bodyText: bodyHtml
+            bodyText: bodyHtml,
+            tags: content.data.tags
         }
     };
 }

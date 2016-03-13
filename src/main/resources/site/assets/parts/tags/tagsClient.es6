@@ -10,16 +10,7 @@ let tagsClient = (function() {
         config.partElement = document.querySelector(config.partElementSelector);
 
         registerTagsClickEvent();
-        initMasonry();
         initSelectedTags();
-    };
-
-    const initMasonry = function() {
-        var grid = config.partElement.querySelector('.grid-tags');
-        var msnry = new Masonry( '.grid-tags', {
-            gutter: 2,
-            itemSelector: '.grid-item-tag'
-        });
     };
 
     const initSelectedTags = function(){
