@@ -50,7 +50,7 @@ const getModel = function(){
 
     let result = libs.content.query({
         start: 0,
-        count: 100,
+        count: 1000,
         contentTypes: [
             app.name + ":brick"
         ],
@@ -58,8 +58,8 @@ const getModel = function(){
             floors: {
                 terms: {
                     field: "data.tags",
-                    order: "_count asc",
-                    size:100
+                    order: "_count desc",
+                    size:10
                 }
         }
         }

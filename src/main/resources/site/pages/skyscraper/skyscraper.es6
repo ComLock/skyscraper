@@ -1,5 +1,3 @@
-var DomParser = require('dom-parser');
-
 var libs = {
     portal: require('/lib/xp/portal'),
     thymeleaf: require('/lib/xp/thymeleaf'),
@@ -26,12 +24,6 @@ function handleGet(req) {
 
         return model;
     }
-
-    let parser = new DomParser();
-    let htmlString = '<html><body><h1 id="heading">Test use of npm lib in skyscraper page controller</h1></body></html>';
-    let dom = parser.parseFromString(htmlString);
-    libs.util.log(`dom ${dom}`);
-    libs.util.log(dom.getElementById('heading').textContent);
 
     const skyscraperScript = libs.portal.assetUrl({
         path: 'pages/skyscraper/skyscraperClient.js'

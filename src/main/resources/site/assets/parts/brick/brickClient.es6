@@ -7,14 +7,14 @@ let skyscraper = (function() {
     };
 
     var registerClickEvent = function() {
-        var skyscraper = document.getElementById('architect');
+        var skyscraper = document.getElementById('brick');
         skyscraper.addEventListener('click', function() {
             handleSkyscraperClick(this);
         });
     };
 
     var handleSkyscraperClick = function(element) {
-        console.log('clicked architect');
+        console.log('clicked brick');
     };
 
     return {

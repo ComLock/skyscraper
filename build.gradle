@@ -39,6 +39,7 @@ dependencies {
     include "com.enonic.xp:lib-xslt:${xpVersion}"
     include "com.enonic.xp:lib-mustache:${xpVersion}"
     include "com.enonic.xp:lib-i18n:${xpVersion}"
+    include "com.enonic.xp:lib-io:${xpVersion}"
     include "com.enonic.lib:util:1.0.0"
     include "com.enonic.lib:menu:1.1.1"
     include "openxp.lib:jsonpath:1.1.0"
@@ -90,4 +91,8 @@ publishing {
             url 'http://repo.enonic.net/artifactory/public'
         }
     }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.11'
 }
