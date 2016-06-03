@@ -2,11 +2,11 @@
     <h1 data-th-if="${brick.heading}" id="heading" data-th-text="${brick.heading}">Louis Henri Sullivan</h1>
     <p data-th-if="${brick.preface}" id="preface" class="preface" data-th-utext="${brick.preface}">He was one of the
         first bricks to design skyscrapers.</p>
-    <div id="body">
+    <div class="body">
         <img data-th-if="${brick.image}" id="image" data-th-src="${brick.image}"/>
         <div data-th-remove="tag" data-th-each="tag : ${brick.tags}">
             <span class="secondary label radius tag" data-th-text="${tag}"/>
         </div>
-        <span data-th-if="${brick.bodyText}" id="bodyText" data-th-utext="${brick.bodyText}" data-th-remove="tag"/>
+        <span data-th-if="${brick.bodyText}" id="bodyText" data-th-utext="${brick.bodyText}"/>
     </div>
 </div>

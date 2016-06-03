@@ -2,19 +2,20 @@ var libs = {
     portal: require('/lib/xp/portal'),
     thymeleaf: require('/lib/xp/thymeleaf'),
     content: require('/lib/xp/content'),
-    util: require('/lib/enonic/util/util')
+    util: require('/lib/enonic/util/util'),
+    brickModel: require('/lib/skyscraper/brick-model')
 };
 
 exports.get = handleGet;
 exports.post = handleGet;
 
-
 function handleGet(req) {
+
 
     const view = resolve('brick.html');
     const content = libs.portal.getContent();
 
-    let model = getModel(content);
+    let model = libs.brickModel.getBrickModel(content);
 
     let brickClientScript = libs.portal.assetUrl({
         path: 'parts/brick/brickClient.js'
@@ -38,25 +39,4 @@ function handleGet(req) {
     };
 }
 
-const getModel = function(content){
 
-    let imageUrl = libs.portal.imageUrl({
-        id: content.data.image,
-        scale: 'height(400)',
-        filter: 'rounded(1);sharpen();border(2,0x777777)'
-    });
-
-    let bodyHtml = libs.portal.processHtml({
-        value: content.data.bodyText
-    });
-
-    return {
-        brick:{
-            heading: content.displayName,
-            image: imageUrl,
-            preface: content.data.preface,
-            bodyText: bodyHtml,
-            tags: content.data.tags
-        }
-    };
-}

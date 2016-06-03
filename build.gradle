@@ -58,7 +58,7 @@ node{
 task eslint(type:NodeTask, dependsOn:'npmInstall'){
     script = file('node_modules/eslint/bin/eslint.js')
     args = ['src/main/resources/site/',
-            '--ext ".js, .es6"']
+            '--ext ".es6"']
 }
 jar.dependsOn += eslint
 
@@ -94,5 +94,5 @@ publishing {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.11'
+    gradleVersion = '2.13'
 }

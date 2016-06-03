@@ -1,1 +1,2 @@
-src/main/resources/site/assets/libs/*
+src/main/resources/assets/libs/*
+src/main/resources/site/lib/*

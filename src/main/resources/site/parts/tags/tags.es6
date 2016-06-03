@@ -32,13 +32,7 @@ function handleGet(req) {
 const getModel = function(){
     let model = {
         partnamespace: libs.partnamespace.getNs(),
-        componentUrl: libs.portal.componentUrl({}),
-        updateTagsServiceUrl: libs.portal.serviceUrl({
-            service: 'updateTags',
-            params: {
-                tag: ''
-            }
-        })
+        componentUrl: libs.portal.componentUrl({})
     };
 
     let content = libs.portal.getContent();

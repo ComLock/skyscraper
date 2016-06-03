@@ -4,23 +4,24 @@ const libs = {
     util: require('/lib/enonic/util/util'),
     content: require('/lib/xp/content'),
     partnamespace: require('/lib/openxp/partnamespace'),
-    jsonPath: require('/lib/openxp/jsonpath')
-
+    jsonPath: require('/lib/openxp/jsonpath'),
+    brickModel: require('/lib/skyscraper/brick-model')
 };
 
 exports.get = handleGet;
 
 function handleGet(req) {
 
+
     let query = '';
     let tags = req.params.tags;
-    if (tags){
-        tags = tags.replace(',',' ');
-        query = "fulltext('data.tags', '"+ tags +"', 'AND')";
+    if (tags) {
+        tags = tags.replace(',', ' ');
+        query = "fulltext('data.tags', '" + tags + "', 'AND')";
     }
     const view = resolve('flexbox.html');
 
-    const bricks= libs.content.query({
+    const bricks = libs.content.query({
         start: 0,
         count: 100,
         query: query,
@@ -36,44 +37,40 @@ function handleGet(req) {
         path: 'parts/flexbox/flexbox.css'
     });
 
+    const stylesJs = libs.portal.assetUrl({
+        path: 'styles.js'
+    });
+
+
     return {
         contentType: 'text/html',
         body: libs.thymeleaf.render(view, model),
         pageContributions: {
             headEnd: [
-                "<link href='" + masonryCss + "' rel='stylesheet' type='text/css'/>",
+                //"<link href='" + masonryCss + "' rel='stylesheet' type='text/css'/>",
+                //libs.partnamespace.getNsScript('parts/flexbox/flexboxClient.js'),
+                "<script src='"+stylesJs+"' type='javascript'/>",
                 libs.partnamespace.getNsScript('parts/flexbox/flexboxClient.js')
             ]
         }
     }
 }
 
-const getModel = function(bricks){
+
+
+const getModel = function (bricks) {
 
     let model = {
         partnamespace: libs.partnamespace.getNs(),
         componentUrl: libs.portal.componentUrl({}),
-        bricks:[]
+        bricks: []
     };
 
-    bricks.hits.forEach(function(element,index,array){
-        model.bricks.push(
-            {
-                heading: element.displayName,
-                image: libs.portal.imageUrl({
-                    id: element.data.image,
-                    scale: 'width(200)',
-                    filter: 'rounded(1);sharpen();border(2,0x777777)'
-                }),
-                preface: element.data.preface,
-                tags: element.data.tags
-                /*bodyText: libs.portal.processHtml({
-                    value: element.data.bodyText
-                })*/
-
-            }
-        );
+    bricks.hits.forEach(element => {
+        log.info('%s',element);
+        model.bricks.push(libs.brickModel.getBrickModel(element).brick);
     });
+
     return model;
 }
 
