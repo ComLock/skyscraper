@@ -1,3 +1,5 @@
+require('../../server-polyfills.es6');
+
 const libs = {
     portal: require('/lib/xp/portal'),
     thymeleaf: require('/lib/xp/thymeleaf'),
@@ -10,54 +12,73 @@ exports.get = handleGet;
 
 function handleGet(req) {
 
-    const view = resolve('tags.html');
-
-    let model = getModel();
-
-    const tagsCss = libs.portal.assetUrl({
-        path: 'parts/tags/tags.css'
-    });
+    const view = resolve('tagz.html');
+    let model = getModel(req);
 
     return {
         body: libs.thymeleaf.render(view, model),
         pageContributions: {
             headEnd: [
-                "<link href='" + tagsCss + "' rel='stylesheet' type='text/css'/>",
                 libs.partnamespace.getNsScript('parts/tags/tagsClient.js')
             ]
         }
     };
 }
 
-const getModel = function(){
+const getModel = function (req) {
     let model = {
         partnamespace: libs.partnamespace.getNs(),
         componentUrl: libs.portal.componentUrl({})
     };
 
-    let content = libs.portal.getContent();
+    let allTagsResult = queryTags('');
+    let filteredTagsResult = queryTags(getSelectedTagsQuery(req));
 
-    if (content.type == app.name + ":brick"){
-        model.tags = content.data.tags;
-        return model;
+    let allTags = allTagsResult.aggregations.floors.buckets;
+    let filteredTags = filteredTagsResult.aggregations.floors.buckets;
+
+    allTags.forEach(tag => {
+        filteredTags.forEach(filteredTag => {
+           if (tag.key === filteredTag.key){
+               tag.filterCount = filteredTag.docCount;
+           }
+        });
+    });
+
+    model.allTags = allTags;
+    model.allTagsCount = allTags.length;
+    model.filteredTagsCount = filteredTags.length;
+    log.info('%s',model);
+
+    return model;
+};
+
+const getSelectedTagsQuery = function(req){
+    let query = '';
+    let selectedTags = req.params.tags;
+    if (selectedTags) {
+        selectedTags = selectedTags.replace(',', ' ');
+        query = "fulltext('data.tags', '" + selectedTags + "', 'AND')";
     }
+    return query;
+};
 
-    let result = libs.content.query({
+const queryTags = function(query){
+    return libs.content.query({
         start: 0,
+        query: query,
         count: 1000,
         contentTypes: [
-            app.name + ":brick"
+            "openxp.starter.skyscraper:brick"
         ],
         aggregations: {
             floors: {
                 terms: {
                     field: "data.tags",
                     order: "_count desc",
-                    size:10
+                    size: 1000
                 }
-        }
+            }
         }
     });
-    model.aggregations = result.aggregations.floors.buckets;
-    return model;
-}
+};

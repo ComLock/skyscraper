@@ -11,8 +11,6 @@ const libs = {
 exports.get = handleGet;
 
 function handleGet(req) {
-
-
     let query = '';
     let tags = req.params.tags;
     if (tags) {
@@ -23,33 +21,20 @@ function handleGet(req) {
 
     const bricks = libs.content.query({
         start: 0,
-        count: 100,
+        count: 1000,
         query: query,
         contentTypes: [
-            app.name + ":brick"
+            "openxp.starter.skyscraper:brick"
         ]
     });
 
     let model = getModel(bricks);
-
-
-    const masonryCss = libs.portal.assetUrl({
-        path: 'parts/flexbox/flexbox.css'
-    });
-
-    const stylesJs = libs.portal.assetUrl({
-        path: 'styles.js'
-    });
-
 
     return {
         contentType: 'text/html',
         body: libs.thymeleaf.render(view, model),
         pageContributions: {
             headEnd: [
-                //"<link href='" + masonryCss + "' rel='stylesheet' type='text/css'/>",
-                //libs.partnamespace.getNsScript('parts/flexbox/flexboxClient.js'),
-                "<script src='"+stylesJs+"' type='javascript'/>",
                 libs.partnamespace.getNsScript('parts/flexbox/flexboxClient.js')
             ]
         }
@@ -59,21 +44,13 @@ function handleGet(req) {
 
 
 const getModel = function (bricks) {
-
     let model = {
         partnamespace: libs.partnamespace.getNs(),
         componentUrl: libs.portal.componentUrl({}),
         bricks: []
     };
 
-    bricks.hits.forEach(element => {
-        log.info('%s',element);
-        model.bricks.push(libs.brickModel.getBrickModel(element).brick);
-    });
+    bricks.hits.forEach(element => model.bricks.push(libs.brickModel.getBrickModel(element).brick));
 
     return model;
-}
-
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+};

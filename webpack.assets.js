@@ -6,8 +6,8 @@ const webpack = require('webpack');
 module.exports.assets = () => {
     return {
         entry: getEntryFiles('.es6',
-            [['main/resources/assets/parts', 'resources'],
-                ['main/resources/assets/pages', 'resources']],
+            [['main/resources/assets/parts', 'assets'],
+                ['main/resources/assets/pages', 'assets']],
             ['client-polyfills']),
         devtool: 'source-map',
         console: true,

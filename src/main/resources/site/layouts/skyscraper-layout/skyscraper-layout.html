@@ -1,0 +1,13 @@
+<div class="skyscraperContainer">
+    <div data-portal-region="one" class="container one">
+        <div data-th-if="${one!=null}" data-th-each="component : ${one.components}" data-th-remove="tag">
+            <div data-portal-component="${component.path}" data-th-remove="tag" />
+        </div>
+    </div>
+
+    <div data-th-if="${two!=null}" data-portal-region="two" class="container two" >
+        <div data-th-each="component : ${two.components}" data-th-remove="tag">
+            <div data-portal-component="${component.path}" data-th-remove="tag" />
+        </div>
+    </div>
+</div>

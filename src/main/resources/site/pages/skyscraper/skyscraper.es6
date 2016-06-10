@@ -28,9 +28,10 @@ function handleGet(req) {
     const skyscraperScript = libs.portal.assetUrl({
         path: 'pages/skyscraper/skyscraperClient.js'
     });
+    
 
-    const skyscraperCss = libs.portal.assetUrl({
-        path: 'pages/skyscraper/skyscraper.css'
+    const stylesJs = libs.portal.assetUrl({
+        path: 'styles.js'
     });
 
     return {
@@ -38,7 +39,6 @@ function handleGet(req) {
         body: libs.thymeleaf.render(view, model),
         pageContributions: {
             headBegin: [
-                "<link href='" + skyscraperCss + "' rel='stylesheet' type='text/css'/>",
                 "<script src='" + skyscraperScript + "' type='text/javascript'></script>"
             ]
         }

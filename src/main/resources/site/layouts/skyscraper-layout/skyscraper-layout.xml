@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<layout>
+  <display-name>Skyscraper layout</display-name>
+  <config>
+  </config>
+  <regions>
+    <region name="one"/>
+    <region name="two"/>
+  </regions>
+</layout>

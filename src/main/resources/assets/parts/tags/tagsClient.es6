@@ -1,4 +1,4 @@
-const Masonry = require('masonry-layout');
+let DomParser = require('dom-parser');
 
 let tagsClient = (function() {
 
@@ -20,14 +20,33 @@ let tagsClient = (function() {
 
         for (let i = 0; i < tagElements.length; i++){
             if (storedTags.indexOf(tagElements[i].id)!==-1){
-                tagElements[i].classList.add('selected');
+                tagElements[i].checked = true;
             }
         }
     };
 
     const registerTagsClickEvent = function() {
-        console.log('Add click listener to ' + config.partElement);
         config.partElement.addEventListener('click', handleTagsClick, false);
+    };
+
+    const handleNewTags = function(responseText){
+        let parser = new DomParser();
+        let dom = parser.parseFromString(responseText);
+        let newHtml = dom.getElementById(config.partnamespace);
+        let oldHtml = config.partElement.querySelector("#"+config.partnamespace);
+        if (newHtml && oldHtml && newHtml.innerHTML && oldHtml.innerHTML && !Object.is(newHtml,oldHtml)){
+            oldHtml.innerHTML = newHtml.innerHTML;
+        }
+        initSelectedTags();
+    };
+
+    const loadDoc = function (urlToFetch){
+        fetch(urlToFetch,{credentials: 'same-origin'})
+            .then(function(response) {
+                return response.text()
+            }).then(function(body) {
+            handleNewTags(body);
+        });
     };
 
     var handleTagsClick = function(event) {
@@ -35,12 +54,12 @@ let tagsClient = (function() {
             let clickedItemId = event.target.id;
             event.target.classList.toggle('selected');
             var existingTags = sessionStorage.getItem(config.sessionStorageKey);
-
-
+            let storedTags;
             if (!existingTags){//Handle first clicked tag
                 sessionStorage.setItem(config.sessionStorageKey, JSON.stringify([clickedItemId]));
+                storedTags = [clickedItemId];
             }else{
-                let storedTags = JSON.parse(existingTags);
+                storedTags = JSON.parse(existingTags);
                 if (storedTags.indexOf(clickedItemId)===-1){//add new tag
                     storedTags.push(clickedItemId);
                 }else{//remove tag
@@ -52,6 +71,8 @@ let tagsClient = (function() {
                 }
                 sessionStorage.setItem(config.sessionStorageKey, JSON.stringify(storedTags));
             }
+
+            loadDoc(config.componentUrl+ '?tags='+storedTags);
 
             eventEmitter.emit('clickTag', {
                 id:clickedItemId,

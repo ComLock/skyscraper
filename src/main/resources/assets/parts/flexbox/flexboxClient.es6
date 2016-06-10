@@ -1,23 +1,14 @@
 let DomParser = require('dom-parser');
 
-let masonryClient = (function() {
+let flexboxClient = (function() {
     let listener;
 
     const init = function() {
         Object.assign(config, window[config.partnamespace]);
         config.partElementSelector = '*[data-partnamespace="'+config.partnamespace+'"]';
         config.partElement = document.querySelector(config.partElementSelector);
-        initMasonry();
         eventListener();
         setSelectedTags();
-    };
-
-    const initMasonry = function() {
-        let grid = config.partElement.querySelector('.grid-bricks');
-        let msnry = new Masonry( '.grid-bricks', {
-            gutter: 10,
-            itemSelector: '.grid-item-brick'
-        });
     };
 
     const setSelectedTags = function(){
@@ -52,7 +43,6 @@ let masonryClient = (function() {
         let oldHtml = config.partElement;
         if (newHtml && oldHtml && newHtml.innerHTML && oldHtml.innerHTML && !Object.is(newHtml,oldHtml)){
             oldHtml.innerHTML = newHtml.innerHTML;
-            initMasonry();
             setSelectedTags();
         }
     };
@@ -75,7 +65,7 @@ let masonryClient = (function() {
 })();
 
 document.addEventListener('DOMContentLoaded', function () {
-    masonryClient.init();
+    flexboxClient.init();
 });
 
 

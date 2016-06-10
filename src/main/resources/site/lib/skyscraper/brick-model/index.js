@@ -14,8 +14,8 @@ module.exports.getBrickModel = function (content){
             }),
             image: libs.portal.imageUrl({
                 id: content.data.image,
-                scale: 'height(400)',
-                filter: 'rounded(1);sharpen();border(2,0x777777)'
+                scale: 'width(250)',
+                filter: 'rounded(1);'
             })
         }
     };
