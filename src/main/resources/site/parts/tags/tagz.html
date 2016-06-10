@@ -14,10 +14,16 @@
     <section data-th-id="${partnamespace.part}" class="container">
         <ul class="tags">
             <li data-th-each="tag : ${allTags}">
-                <input class="tag" type="checkbox" data-th-id="${tag.key}"/>
-                <span data-th-text="${tag.key}" data-th-remove="tag"/>
-                <span data-th-if="${allTagsCount == filteredTagsCount}" data-th-text="|(${tag.docCount})|"/>
-                <span data-th-if="${allTagsCount != filteredTagsCount}" data-th-text="|(${tag.filterCount!=null?tag.filterCount:0})|"/>
+                <div data-th-if="${allTagsCount == filteredTagsCount}" data-th-remove="tag">
+                    <input  class="tag" type="checkbox" data-th-id="${tag.key}"/>
+                    <span data-th-text="${tag.key}" data-th-remove="tag"/>
+                    <span data-th-text="|(${tag.docCount})|"/>
+                </div>
+                <div data-th-if="${allTagsCount != filteredTagsCount and tag.filterCount!=null}" data-th-remove="tag">
+                    <input  class="tag" type="checkbox" data-th-id="${tag.key}"/>
+                    <span data-th-text="${tag.key}" data-th-remove="tag"/>
+                    <span data-th-text="|(${tag.filterCount!=null?tag.filterCount:0})|"/>
+                </div>
             </li>
         </ul>
         <span data-th-text="${selectedTags}"/>

@@ -48,7 +48,6 @@ const getModel = function (req) {
     model.allTags = allTags;
     model.allTagsCount = allTags.length;
     model.filteredTagsCount = filteredTags.length;
-    log.info('%s',model);
 
     return model;
 };
