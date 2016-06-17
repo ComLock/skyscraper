@@ -58,7 +58,7 @@ let tagsClient = (function() {
     };
 
     var handleTagsClick = function(event) {
-        if (event.target !== event.currentTarget) {
+        if (event.target !== event.currentTarget && event.target.tagName=="INPUT") {
             let clickedItemId = event.target.id;
             event.target.classList.toggle('selected');
             var existingTags = sessionStorage.getItem(config.sessionStorageKey);
