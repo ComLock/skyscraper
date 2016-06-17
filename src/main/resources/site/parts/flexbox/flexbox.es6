@@ -36,9 +36,11 @@ function handleGet(req) {
 
     let model = getModel(bricks);
 
+    let html =libs.thymeleaf.render(view, model);
+
     return {
         contentType: 'text/html',
-        body: libs.thymeleaf.render(view, model),
+        body: html,
         pageContributions: {
             headEnd: [
                 libs.partnamespace.getNsScript('parts/flexbox/flexboxClient.js')
