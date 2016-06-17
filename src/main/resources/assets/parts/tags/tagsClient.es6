@@ -8,6 +8,7 @@ let tagsClient = (function() {
         Object.assign(config, window[config.partnamespace]);
         config.partElementSelector = '*[data-partnamespace="'+config.partnamespace+'"]';
         config.partElement = document.querySelector(config.partElementSelector);
+        config.loadingSelector = config.partElementSelector + ' .loading';
 
         registerTagsClickEvent();
         initSelectedTags();
@@ -41,12 +42,19 @@ let tagsClient = (function() {
     };
 
     const loadDoc = function (urlToFetch){
+        let loadingElement = config.partElement.querySelector(config.loadingSelector);
+        loadingElement.classList.toggle("hidden");
+        const activeElementId = document.activeElement.id;
         fetch(urlToFetch,{credentials: 'same-origin'})
             .then(function(response) {
                 return response.text()
             }).then(function(body) {
             handleNewTags(body);
+            let activeElement = config.partElement.querySelector("#"+activeElementId);
+            activeElement.focus();
         });
+
+
     };
 
     var handleTagsClick = function(event) {

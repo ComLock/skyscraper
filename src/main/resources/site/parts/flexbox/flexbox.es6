@@ -14,11 +14,17 @@ function handleGet(req) {
     let query = '';
     let tags = req.params.tags;
     if (tags) {
-        tags = tags.replace(',', ' ');
-        query = "fulltext('data.tags', '" + tags + "', 'AND')";
+        tags = tags.split(",");
+        tags.forEach(selectedTag => {
+            if (selectedTag!==''){
+                if (query!==''){
+                    query+=" AND ";
+                }
+                query += " data.tags = '" +  selectedTag + "'";
+            }
+        });
     }
     const view = resolve('flexbox.html');
-
     const bricks = libs.content.query({
         start: 0,
         count: 1000,

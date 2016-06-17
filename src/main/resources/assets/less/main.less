@@ -1,13 +1,27 @@
+//@import (less) "../../../../../node_modules/normalize.css/normalize.css";
+@import (less) "~normalize.css";
+//@import "~font-awesome/css/font-awesome.css";
+@import "~font-awesome/less/font-awesome.less";
 @import "grid";
-@import "parts/brick-show";
-@import "parts/brick-list";
+@import "parts/brick";
+@import "parts/flexbox";
 @import "parts/tags";
+@import "parts/tags";
+
+html{
+  padding:5px;
+}
+
 
 body {
   background-color:white;
 }
 
 #skyscraperStarter{
+
+  .hidden{
+    display: none;
+  }
 
   h1 {
     font-family: Verdana, Geneva, sans-serif;

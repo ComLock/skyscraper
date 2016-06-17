@@ -12,20 +12,32 @@
     </script>
 
     <section data-th-id="${partnamespace.part}" class="container">
-        <ul class="tags">
-            <li data-th-each="tag : ${allTags}">
-                <div data-th-if="${allTagsCount == filteredTagsCount}" data-th-remove="tag">
-                    <input  class="tag" type="checkbox" data-th-id="${tag.key}"/>
+        <i class="fa fa-tags fa-4x" aria-hidden="true"></i>
+        <i class="fa fa-cog fa-spin fa-3x fa-fw hidden loading" aria-hidden="true"></i>
+        <span class="sr-only">Loading...</span>
+        <ul class="fa-ul">
+            <div data-th-each="tag : ${allTags}" data-th-remove="tag">
+                <li data-th-if="${allTagsCount == filteredTagsCount}">
+                    <input class="tag" type="checkbox" data-th-id="${tag.key}"/>
                     <span data-th-text="${tag.key}" data-th-remove="tag"/>
                     <span data-th-text="|(${tag.docCount})|"/>
-                </div>
-                <div data-th-if="${allTagsCount != filteredTagsCount and tag.filterCount!=null}" data-th-remove="tag">
-                    <input  class="tag" type="checkbox" data-th-id="${tag.key}"/>
+                </li>
+                <li data-th-if="${allTagsCount != filteredTagsCount and tag.filterCount!=null}">
+                    <input class="tag" type="checkbox" data-th-id="${tag.key}"/>
                     <span data-th-text="${tag.key}" data-th-remove="tag"/>
                     <span data-th-text="|(${tag.filterCount!=null?tag.filterCount:0})|"/>
-                </div>
-            </li>
+                </li>
+            </div>
         </ul>
         <span data-th-text="${selectedTags}"/>
     </section>
+</div>
+
+<div data-th-fragment="listTags (tags)" class="tags">
+    <ul>
+        <li data-th-each="tag : ${tags}">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <div data-th-text="${tag}" data-th-remove="tag"/>
+        </li>
+    </ul>
 </div>

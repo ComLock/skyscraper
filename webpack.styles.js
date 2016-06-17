@@ -20,17 +20,15 @@ module.exports.styles = () => {
                 },
                 {
                     test: /\.css$/,
-                    loader: "style!css!"
+                    loader: "style!css"
                 },
                 {
                     test: /\.less$/,
                     exclude: /node_modules/,
                     loader: "style!css!postcss!less"
                 },
-                {
-                    test: /\.(png|jpg|woff|woff2|svg)$/,
-                    exclude: /node_modules/,
-                    loader: 'url-loader?limit=8192'
+                { test: /\.(jpe|jpg|woff|woff2|eot|ttf|svg)(\?.*$|$)/,
+                    loader: 'url?limit=100000&name=[name].[ext]'
                 }
             ]
         },

@@ -54,16 +54,23 @@ const getModel = function (req) {
 
 const getSelectedTagsQuery = function(req){
     let query = '';
-    let selectedTags = req.params.tags;
-    if (selectedTags) {
-        selectedTags = selectedTags.replace(',', ' ');
-        query = "fulltext('data.tags', '" + selectedTags + "', 'AND')";
+    let tags = req.params.tags;
+    if (tags) {
+        tags = tags.split(",");
+        tags.forEach(selectedTag => {
+            if (selectedTag!==''){
+                if (query!==''){
+                    query+=" AND ";
+                }
+                query += " data.tags = '" +  selectedTag + "'";
+            }
+        });
     }
     return query;
 };
 
 const queryTags = function(query){
-    return libs.content.query({
+    let q = {
         start: 0,
         query: query,
         count: 1000,
@@ -79,5 +86,9 @@ const queryTags = function(query){
                 }
             }
         }
-    });
+    };
+    if (query!=''){
+        q.query = query;
+    }
+    return libs.content.query(q);
 };
