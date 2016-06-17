@@ -10,7 +10,7 @@
         </script>
 
     <div class="brick grid-item-brick" data-th-if="${bricks}" data-th-each="brick : ${bricks}">
-        <div data-th-replace="../brick/brick.html :: viewBrick(${brick})"/>
+        <div data-th-replace="/site/fragments/viewBrick.html :: viewBrick(${brick})"/>
     </div>
 
 </div>

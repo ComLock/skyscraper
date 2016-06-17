@@ -7,11 +7,6 @@ module.exports.getBrickModel = function (content){
     var model = {
         brick:{
             heading: content.displayName,
-            preface: content.data.preface,
-            tags: content.data.tags,
-            bodyText: libs.portal.processHtml({
-                value: content.data.bodyText
-            }),
             image: libs.portal.imageUrl({
                 id: content.data.image,
                 scale: 'width(250)',
@@ -19,5 +14,18 @@ module.exports.getBrickModel = function (content){
             })
         }
     };
+    
+    if (content.data.preface){
+        model.brick.preface = content.data.preface;
+
+    }
+    if (content.data.tags){
+        model.brick.tags = content.data.tags;
+    }
+    if (content.data.bodyText){
+        model.brick.bodyText = libs.portal.processHtml({
+            value: content.data.bodyText
+        })
+    }
     return model;
 };

@@ -1,0 +1,7 @@
+<div data-th-fragment="viewBrick (brick)" data-th-remove="tag">
+    <h1 data-th-if="${brick.heading}" id="heading" data-th-text="${brick.heading}"/>
+    <img data-th-if="${brick.image}" data-th-title="${brick.tags}" id="image" data-th-src="${brick.image}"/>
+    <div data-th-replace="/site/fragments/viewBrick.html :: listTags(${brick.tags})"/>
+    <p data-th-if="${brick.preface}" id="preface" class="preface" data-th-utext="${brick.preface}"/>
+</div>
+

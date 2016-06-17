@@ -20,11 +20,7 @@ function handleGet(req) {
     let brickClientScript = libs.portal.assetUrl({
         path: 'parts/brick/brickClient.js'
     });
-
-    let brickCss = libs.portal.assetUrl({
-        path: 'parts/brick/brick.css'
-    });
-
+    
     let body = libs.thymeleaf.render(view, model);
 
     return {
@@ -32,7 +28,6 @@ function handleGet(req) {
         body: body,
         pageContributions: {
             headEnd: [
-                "<link href='" + brickCss + "' rel='stylesheet' type='text/css'/>",
                 "<script src='" + brickClientScript + "' type='text/javascript'></script>"
             ]
         }

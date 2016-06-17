@@ -38,12 +38,3 @@
         <span data-th-text="${selectedTags}"/>
     </section>
 </div>
-
-<div data-th-fragment="listTags (tags)" class="tags">
-    <ul>
-        <li data-th-each="tag : ${tags}">
-            <i class="fa fa-tags" aria-hidden="true"></i>
-            <div data-th-text="${tag}" data-th-remove="tag"/>
-        </li>
-    </ul>
-</div>
