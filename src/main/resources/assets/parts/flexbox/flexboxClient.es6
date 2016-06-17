@@ -7,33 +7,17 @@ let flexboxClient = (function() {
         Object.assign(config, window[config.partnamespace]);
         config.partElementSelector = '*[data-partnamespace="'+config.partnamespace+'"]';
         config.partElement = document.querySelector(config.partElementSelector);
-        eventListener();
-        setSelectedTags();
-    };
-
-    const setSelectedTags = function(){
-        let storedTags = JSON.parse(sessionStorage.getItem(config.sessionStorageKey));
-        let tagElements = config.partElement.querySelectorAll('.tag');
-        if (!storedTags || !tagElements){return;}
-
-        for (let i = 0; i < tagElements.length; i++){
-            if (storedTags.indexOf(tagElements[i].textContent.toLowerCase())!==-1){
-                tagElements[i].classList.add('selected');
-            }else{
-                tagElements[i].classList.remove('selected');
-            }
-        }
+        registerEvents();
+        refreshFromSessionStorage();
     };
 
     const loadDoc = function (urlToFetch){
-        let xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (xhttp.readyState == 4 && xhttp.status == 200) {
-                handleNewBricks(xhttp.responseText)
-            }
-        };
-        xhttp.open("GET", urlToFetch, true);
-        xhttp.send();
+        fetch(urlToFetch,{credentials: 'same-origin'})
+            .then(function(response) {
+                return response.text()
+            }).then(function(body) {
+            handleNewBricks(body);
+        });
     };
 
     const handleNewBricks = function(responseText){
@@ -43,19 +27,21 @@ let flexboxClient = (function() {
         let oldHtml = config.partElement;
         if (newHtml && oldHtml && newHtml.innerHTML && oldHtml.innerHTML && !Object.is(newHtml,oldHtml)){
             oldHtml.innerHTML = newHtml.innerHTML;
-            setSelectedTags();
         }
     };
 
-    const eventListener = function() {
-        eventEmitter.on('clickTag', listener = function(args) {
-            let storedTags = JSON.parse(sessionStorage.getItem(config.sessionStorageKey));
-            let urlToFetch = config.componentUrl+ '?tags='+storedTags;
-            console.log('Fetch from ' + urlToFetch);
+    const registerEvents = function() {
+        eventEmitter.on('clickTag', listener = refreshFromSessionStorage);
+        eventEmitter.on('clearTags', listener = refreshFromSessionStorage);
+    };
 
-            loadDoc(urlToFetch);
-
-        });
+    const refreshFromSessionStorage = function (args){
+        let urlToFetch = config.componentUrl;
+        let storedTags = JSON.parse(sessionStorage.getItem(config.sessionStorageKey));
+        if (storedTags){
+            urlToFetch += '?tags='+storedTags;
+        }
+        loadDoc(urlToFetch);
     };
 
     return {

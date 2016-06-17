@@ -14,7 +14,7 @@ let skyscraper = (function() {
     };
 
     var handleSkyscraperClick = function(element) {
-        console.log('clicked brick');
+
     };
 
     return {

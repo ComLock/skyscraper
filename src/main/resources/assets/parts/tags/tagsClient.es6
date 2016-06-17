@@ -1,16 +1,43 @@
 let DomParser = require('dom-parser');
 
+
+function getExistingTags(toggleTagWithId) {
+    var existingTags = sessionStorage.getItem(config.sessionStorageKey);
+    if (toggleTagWithId === undefined){
+        return JSON.parse(existingTags);
+    }
+
+    let storedTags;
+    if (!existingTags) {//Handle first clicked tag
+        sessionStorage.setItem(config.sessionStorageKey, JSON.stringify([toggleTagWithId]));
+        storedTags = [toggleTagWithId];
+    } else {
+        storedTags = JSON.parse(existingTags);
+        if (storedTags.indexOf(toggleTagWithId) === -1) {//add new tag
+            storedTags.push(toggleTagWithId);
+        } else {//remove tag
+            for (let i = 0; i < storedTags.length; i++) {
+                if (storedTags[i] === toggleTagWithId) {
+                    storedTags.splice(i, 1);
+                }
+            }
+        }
+        sessionStorage.setItem(config.sessionStorageKey, JSON.stringify(storedTags));
+    }
+    return storedTags;
+}
+
 let tagsClient = (function() {
-
+    let listener;
     const init = function() {
-
         //Add inline script config from part to config object
         Object.assign(config, window[config.partnamespace]);
         config.partElementSelector = '*[data-partnamespace="'+config.partnamespace+'"]';
         config.partElement = document.querySelector(config.partElementSelector);
         config.loadingSelector = config.partElementSelector + ' .loading';
 
-        registerTagsClickEvent();
+        registerEvents();
+        refreshFromSessionStorage();
         initSelectedTags();
     };
 
@@ -26,8 +53,18 @@ let tagsClient = (function() {
         }
     };
 
-    const registerTagsClickEvent = function() {
-        config.partElement.addEventListener('click', handleTagsClick, false);
+    const registerEvents = function() {
+        config.partElement.addEventListener('click', handleClick, false);
+        eventEmitter.on('clearTags', listener = refreshFromSessionStorage);
+    };
+
+    const refreshFromSessionStorage = function(args){
+        const existingTags = getExistingTags();
+        if (existingTags){
+            loadDoc(config.componentUrl + '?tags='+existingTags);
+        }else{
+            loadDoc(config.componentUrl);
+        }
     };
 
     const handleNewTags = function(responseText){
@@ -51,44 +88,34 @@ let tagsClient = (function() {
             }).then(function(body) {
             handleNewTags(body);
             let activeElement = config.partElement.querySelector("#"+activeElementId);
-            activeElement.focus();
+            if (activeElement){
+                activeElement.focus();
+            }
         });
-
-
     };
 
-    var handleTagsClick = function(event) {
+    var handleClick = function(event) {
         if (event.target !== event.currentTarget && event.target.tagName=="INPUT") {
-            let clickedItemId = event.target.id;
-            event.target.classList.toggle('selected');
-            var existingTags = sessionStorage.getItem(config.sessionStorageKey);
-            let storedTags;
-            if (!existingTags){//Handle first clicked tag
-                sessionStorage.setItem(config.sessionStorageKey, JSON.stringify([clickedItemId]));
-                storedTags = [clickedItemId];
-            }else{
-                storedTags = JSON.parse(existingTags);
-                if (storedTags.indexOf(clickedItemId)===-1){//add new tag
-                    storedTags.push(clickedItemId);
-                }else{//remove tag
-                    for (let i = 0; i < storedTags.length; i++){
-                        if (storedTags[i]===clickedItemId){
-                            storedTags.splice(i,1);
-                        }
-                    }
-                }
-                sessionStorage.setItem(config.sessionStorageKey, JSON.stringify(storedTags));
-            }
+            clickedTag();
+        }else if (event.target.classList.contains('clearTags')){
+            sessionStorage.removeItem(config.sessionStorageKey);
+            eventEmitter.emit('clearTags', {});
+        }
 
-            loadDoc(config.componentUrl+ '?tags='+storedTags);
+        function clickedTag() {
+            event.target.classList.toggle('selected');
+            let clickedItemId = event.target.id;
+            var storedTags = getExistingTags(clickedItemId);
+
+            loadDoc(config.componentUrl + '?tags=' + storedTags);
 
             eventEmitter.emit('clickTag', {
-                id:clickedItemId,
-                selected:event.target.classList.contains('selected'),
+                id: clickedItemId,
+                selected: event.target.classList.contains('selected'),
                 sessionStorageKey: config.sessionStorageKey
             });
-
         }
+
         event.stopPropagation();
     };
 

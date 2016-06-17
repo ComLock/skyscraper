@@ -13,8 +13,10 @@
 
     <section data-th-id="${partnamespace.part}" class="container">
         <i class="fa fa-tags fa-4x" aria-hidden="true"></i>
-        <i class="fa fa-cog fa-spin fa-3x fa-fw hidden loading" aria-hidden="true"></i>
+        <button class="clearTags" type="button" role="button">Reset tags</button>
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw hidden loading" aria-hidden="true"></i>
         <span class="sr-only">Loading...</span>
+
         <ul class="fa-ul control-group">
             <div data-th-each="tag : ${allTags}" data-th-remove="tag">
                 <li data-th-if="${allTagsCount == filteredTagsCount}">
