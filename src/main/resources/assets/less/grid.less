@@ -8,10 +8,22 @@
       width: 100%;
       height: 100%;
     }
-
-    .one {
-      width:400px;
+    @media only screen and (max-width: 499px) {
+      .one {
+        max-width: 150px;
+        margin-left: 0;
+        li {
+          font-size: smaller;
+        }
+      }
     }
+    @media only screen and (min-width: 500px) {
+      .one {
+        width:200px;
+        margin-left:20px;
+      }
+    }
+
     .two {
       width:100%;
     }
