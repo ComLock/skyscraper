@@ -1,4 +1,4 @@
-var libs = {
+const libs = {
     portal: require('/lib/xp/portal'),
     thymeleaf: require('/lib/xp/thymeleaf'),
     content: require('/lib/xp/content'),
@@ -9,29 +9,25 @@ var libs = {
 exports.get = handleGet;
 exports.post = handleGet;
 
-function handleGet(req) {
+function handleGet() {
 
 
     const view = resolve('brick.html');
     const content = libs.portal.getContent();
 
-    let model = libs.brickModel.getBrickModel(content);
+    const model = libs.brickModel.getBrickModel(content);
 
-    let brickClientScript = libs.portal.assetUrl({
+    const brickClientScript = libs.portal.assetUrl({
         path: 'parts/brick/brickClient.js'
     });
-    
-    let body = libs.thymeleaf.render(view, model);
 
     return {
-        contentType:'text/html',
-        body: body,
+        contentType: 'text/html',
+        body: libs.thymeleaf.render(view, model),
         pageContributions: {
             headEnd: [
-                "<script src='" + brickClientScript + "' type='text/javascript'></script>"
+                `<script src="${brickClientScript}" type='text/javascript'></script>`
             ]
         }
     };
 }
-
-

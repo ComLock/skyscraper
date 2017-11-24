@@ -14,13 +14,13 @@ function handleGet(req) {
     let query = '';
     let tags = req.params.tags;
     if (tags) {
-        tags = tags.split(",");
+        tags = tags.split(',');
         tags.forEach(selectedTag => {
-            if (selectedTag!==''){
-                if (query!==''){
-                    query+=" AND ";
+            if (selectedTag !== '') {
+                if (query !== '') {
+                    query += ' AND ';
                 }
-                query += " data.tags = '" +  selectedTag + "'";
+                query += ` data.tags = '${selectedTag}'`;
             }
         });
     }
@@ -28,15 +28,15 @@ function handleGet(req) {
     const bricks = libs.content.query({
         start: 0,
         count: 1000,
-        query: query,
+        query,
         contentTypes: [
-            "openxp.starter.skyscraper:brick"
+            'openxp.starter.skyscraper:brick'
         ]
     });
 
-    let model = getModel(bricks);
+    const model = getModel(bricks);
 
-    let html =libs.thymeleaf.render(view, model);
+    const html = libs.thymeleaf.render(view, model);
 
     return {
         contentType: 'text/html',
@@ -46,13 +46,12 @@ function handleGet(req) {
                 libs.partnamespace.getNsScript('parts/flexbox/flexboxClient.js')
             ]
         }
-    }
+    };
 }
 
 
-
 const getModel = function (bricks) {
-    let model = {
+    const model = {
         partnamespace: libs.partnamespace.getNs(),
         componentUrl: libs.portal.componentUrl({}),
         bricks: []

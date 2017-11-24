@@ -1,4 +1,4 @@
-var libs = {
+const libs = {
     portal: require('/lib/xp/portal'),
     thymeleaf: require('/lib/xp/thymeleaf')
 };
@@ -7,14 +7,14 @@ var libs = {
 exports.get = handleGet;
 
 function handleGet() {
-    var component = libs.portal.getComponent();
-    var view = resolve('skyscraper-layout.html');
-    var model = createModel();
+    const component = libs.portal.getComponent();
+    const view = resolve('skyscraper-layout.html');
+    const model = createModel();
 
     function createModel() {
-        var model = {
-            one: component.regions["one"],
-            two: component.regions["two"]
+        const model = {
+            one: component.regions.one,
+            two: component.regions.two
         };
         return model;
     }

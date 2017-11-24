@@ -13,7 +13,7 @@ exports.get = handleGet;
 function handleGet(req) {
 
     const view = resolve('tagz.html');
-    let model = getModel(req);
+    const model = getModel(req);
 
     return {
         body: libs.thymeleaf.render(view, model),
@@ -26,22 +26,22 @@ function handleGet(req) {
 }
 
 const getModel = function (req) {
-    let model = {
+    const model = {
         partnamespace: libs.partnamespace.getNs(),
         componentUrl: libs.portal.componentUrl({})
     };
 
-    let allTagsResult = queryTags('');
-    let filteredTagsResult = queryTags(getSelectedTagsQuery(req));
+    const allTagsResult = queryTags('');
+    const filteredTagsResult = queryTags(getSelectedTagsQuery(req));
 
-    let allTags = allTagsResult.aggregations.floors.buckets;
-    let filteredTags = filteredTagsResult.aggregations.floors.buckets;
+    const allTags = allTagsResult.aggregations.floors.buckets;
+    const filteredTags = filteredTagsResult.aggregations.floors.buckets;
 
     allTags.forEach(tag => {
         filteredTags.forEach(filteredTag => {
-           if (tag.key === filteredTag.key){
-               tag.filterCount = filteredTag.docCount;
-           }
+            if (tag.key === filteredTag.key) {
+                tag.filterCount = filteredTag.docCount;
+            }
         });
     });
 
@@ -52,42 +52,42 @@ const getModel = function (req) {
     return model;
 };
 
-const getSelectedTagsQuery = function(req){
+const getSelectedTagsQuery = function (req) {
     let query = '';
     let tags = req.params.tags;
     if (tags) {
-        tags = tags.split(",");
+        tags = tags.split(',');
         tags.forEach(selectedTag => {
-            if (selectedTag!==''){
-                if (query!==''){
-                    query+=" AND ";
+            if (selectedTag !== '') {
+                if (query !== '') {
+                    query += ' AND ';
                 }
-                query += " data.tags = '" +  selectedTag + "'";
+                query += ` data.tags = '${selectedTag}'`;
             }
         });
     }
     return query;
 };
 
-const queryTags = function(query){
-    let q = {
+const queryTags = function (query) {
+    const q = {
         start: 0,
-        query: query,
+        query,
         count: 1000,
         contentTypes: [
-            "openxp.starter.skyscraper:brick"
+            'openxp.starter.skyscraper:brick'
         ],
         aggregations: {
             floors: {
                 terms: {
-                    field: "data.tags",
-                    order: "_count desc",
+                    field: 'data.tags',
+                    order: '_count desc',
                     size: 1000
                 }
             }
         }
     };
-    if (query!=''){
+    if (query !== '') {
         q.query = query;
     }
     return libs.content.query(q);

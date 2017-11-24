@@ -1,4 +1,4 @@
-var libs = {
+const libs = {
     portal: require('/lib/xp/portal'),
     thymeleaf: require('/lib/xp/thymeleaf'),
     menu: require('/lib/enonic/menu'),
@@ -8,16 +8,16 @@ var libs = {
 exports.get = handleGet;
 exports.post = handleGet;
 
-function handleGet(req) {
-    var site = libs.portal.getSite();
-    var content = libs.portal.getContent();
-    var view = resolve('skyscraper.html');
-    var model = createModel();
+function handleGet() {
+    const site = libs.portal.getSite();
+    const content = libs.portal.getContent();
+    const view = resolve('skyscraper.html');
+    const model = createModel();
 
     function createModel() {
-        var model = {};
-        model.mainRegion = content.page.regions['main'];
-        model.sitePath = site['_path'];
+        const model = {};
+        model.mainRegion = content.page.regions.main;
+        model.sitePath = site._path;
         model.currentPath = content._path;
         model.pageTitle = content.displayName;
         model.siteName = site.displayName;
@@ -30,16 +30,16 @@ function handleGet(req) {
     });
 
 
-    const stylesJs = libs.portal.assetUrl({
+    /*const stylesJs = libs.portal.assetUrl({
         path: 'styles.js'
-    });
+    });*/
 
     return {
-        contentType:'text/html',
+        contentType: 'text/html',
         body: libs.thymeleaf.render(view, model),
         pageContributions: {
             headBegin: [
-                "<script src='" + skyscraperScript + "' type='text/javascript'></script>"
+                `<script src="${skyscraperScript}" type='text/javascript'></script>`
             ]
         }
     };

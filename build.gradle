@@ -59,9 +59,11 @@ node{
 }
 
 task eslint(type:NodeTask, dependsOn:'npmInstall'){
-    script = file('node_modules/eslint/bin/eslint.js')
-    args = ['src/main/resources/site/',
-            '--ext ".es6"']
+    script = file('node_modules/.bin/eslint')
+    args = [
+      'src/main/resources/site/',
+      '--ext', '.es6'
+    ]
 }
 jar.dependsOn += eslint
 
