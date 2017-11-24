@@ -1,3 +1,4 @@
+const path = require('path');
 const getEntryFiles = require('./webpack.commons.js').getEntryFiles;
 const getUglifyJsPlugin = require('./webpack.commons.js').getUglifyJsPlugin;
 const webpack = require('webpack');
@@ -10,9 +11,9 @@ module.exports.assets = () => {
                 ['main/resources/assets/pages', 'assets']],
             ['client-polyfills']),
         devtool: 'source-map',
-        console: true,
+        //console: true, // TODO unknown property in webpack 3
         output: {
-            path: './build/resources/main/assets/',
+            path: path.join(__dirname, './build/resources/main/assets/'), // Must be absolute in webpack3
             filename: '[name].js'
         },
         module: {
@@ -26,20 +27,29 @@ module.exports.assets = () => {
                 },
                 {
                     test: /\.less|\.css/,
-                    loader: 'style!css!less'
+                    loader: 'style-loader!css-loader!less-loader'
                 },
                 {
                     test: /\.html$/,
-                    loader: 'html'
+                    loader: 'html-loader'
                 }
             ]
         },
         plugins: [
             getUglifyJsPlugin(),
             new webpack.ProvidePlugin({
-                Promise: 'exports?global.Promise!es6-promise',
-                fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+                Promise: 'exports-loader?global.Promise!es6-promise',
+                fetch: 'imports-loader?this=>global!exports-loader?global.fetch!whatwg-fetch'
             })
-        ]
+        ],
+        stats: {
+            colors: true,
+            hash: false,
+            maxModules: 0,
+            modules: false,
+            moduleTrace: false,
+            timings: false,
+            version: false,
+        },
     }
 };

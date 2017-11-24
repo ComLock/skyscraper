@@ -2,7 +2,7 @@ var libs = {
     portal: require('/lib/xp/portal'),
     thymeleaf: require('/lib/xp/thymeleaf'),
     menu: require('/lib/enonic/menu'),
-    util: require('/lib/enonic/util/util')
+    util: require('/lib/enonic/util')
 };
 
 exports.get = handleGet;
@@ -28,7 +28,7 @@ function handleGet(req) {
     const skyscraperScript = libs.portal.assetUrl({
         path: 'pages/skyscraper/skyscraperClient.js'
     });
-    
+
 
     const stylesJs = libs.portal.assetUrl({
         path: 'styles.js'

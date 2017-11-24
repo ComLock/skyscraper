@@ -1,4 +1,7 @@
+const path = require('path');
+const SRC_MAIN_RESOURCES = 'src/main/resources';
 const getEntryFiles = require('./webpack.commons.js').getEntryFiles;
+
 
 /* Page and part controllers, layouts, libs and services */
 module.exports.site = () => {
@@ -7,7 +10,7 @@ module.exports.site = () => {
             [['main/resources/site', 'site']],
             ['server-polyfills']),
         output: {
-            path: './build/resources/main/site/',
+            path: path.join(__dirname, './build/resources/main/site/'), // Must be absolute in webpack3
             filename: '[name].js',
             libraryTarget: 'commonjs'
         },
@@ -17,7 +20,7 @@ module.exports.site = () => {
         module: {
             loaders: [
                 {
-                    test: /\.es6$/,
+                    test: /\.(es6|js)$/,
                     loader: 'babel-loader',
                     query: {
                         presets: ['es2015']
@@ -25,16 +28,25 @@ module.exports.site = () => {
                 },
                 {
                     test: /\.less|\.css/,
-                    loader: 'style!css!less'
+                    loader: 'style-loader!css-loader!less-loader'
                 },
                 {
                     test: /\.(jpe?g|png|gif|svg)$/i,
                     loaders: [
                         'file?hash=sha512&digest=hex&name=images/[name].[ext]',
-                        'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+                        'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
                     ]
                 }
             ]
         }
+        stats: {
+            colors: true,
+            hash: false,
+            maxModules: 0,
+            modules: false,
+            moduleTrace: false,
+            timings: false,
+            version: false,
+        },
     }
 };

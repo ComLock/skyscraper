@@ -66,10 +66,7 @@ task eslint(type:NodeTask, dependsOn:'npmInstall'){
 jar.dependsOn += eslint
 
 task webpack(type:NodeTask, dependsOn:'npmInstall') {
-    script = file('node_modules/webpack/bin/webpack.js')
-    args = [
-            '--config webpack.config.js'
-    ]
+    script = file('node_modules/.bin/webpack')
 }
 jar.dependsOn += webpack
 test.dependsOn += webpack
