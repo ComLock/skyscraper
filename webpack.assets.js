@@ -22,6 +22,7 @@ module.exports.assets = () => {
                     test: /\.es6$/,
                     loader: 'babel-loader',
                     query: {
+                        babelrc: false, // The .babelrc file should only be used to transpile *.babel.js files.
                         presets: ['es2015']
                     }
                 },
